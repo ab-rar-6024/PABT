@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+/* Theme switching is class-based — next-themes toggles `dark` / `light` on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #0B0F0E;
+  --font-plus-jakarta: 'Plus Jakarta Sans', sans-serif;
+
+  /* Domain Theme Colors */
+  --color-nature: #16A34A;
+  --color-circular: #F59E0B;
+  --color-future: #06B6D4;
+  --color-esg: #64748B;
+  --color-community: #F97316;
+
+  /* shadcn/ui theme tokens (light mode) */
+  --card: #F5F6F1;
+  --muted-foreground: #4B5563;
+  --primary: #16A34A;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F5F6F1;
+  --secondary-foreground: #0B0F0E;
+  --accent: #ECFDF5;
+  --accent-foreground: #14532D;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --ring: #16A34A;
+  --input: #D1D5DB;
+
+  --brand-bg: #FFFFFF;
+  --brand-card: #F5F6F1;
+  --scrollbar-track: #F0F1EE;
+  --scrollbar-thumb: #D1D5DB;
+  --scrollbar-thumb-hover: #9CA3AF;
+}
+
+:root.dark {
+  --background: #0B0F0E;
+  --foreground: #F5F6F1;
+
+  /* shadcn/ui theme tokens (dark mode) */
+  --card: #10150F;
+  --muted-foreground: #9CA3AF;
+  --primary: #16A34A;
+  --primary-foreground: #FFFFFF;
+  --secondary: #10150F;
+  --secondary-foreground: #F5F6F1;
+  --accent: #1F2937;
+  --accent-foreground: #F5F6F1;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --ring: #16A34A;
+  --input: #374151;
+
+  --brand-bg: #0B0F0E;
+  --brand-card: #10150F;
+  --scrollbar-track: #0B0F0E;
+  --scrollbar-thumb: #1F2937;
+  --scrollbar-thumb-hover: #374151;
+}
+
+@theme inline {
+  --font-sans: var(--font-plus-jakarta);
+  --color-brand-bg: var(--brand-bg);
+  --color-brand-card: var(--brand-card);
+  --color-nature: var(--color-nature);
+  --color-circular: var(--color-circular);
+  --color-future: var(--color-future);
+  --color-esg: var(--color-esg);
+  --color-community: var(--color-community);
+
+  /* shadcn/ui theme tokens */
+  --color-background: var(--background);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+/* `100vh` on mobile browsers is the *largest* possible viewport (address bar hidden), so a
+   sticky/pinned full-height section sized off plain vh gets taller than what's actually visible
+   once the address bar is showing — the bottom of the hero video reads as cut off or disappearing
+   as the bar shows/hides while scrolling. `dvh` tracks the real visible viewport and is dropped
+   entirely by browsers that don't understand it, leaving the `vh` line above as its fallback. */
+.hero-viewport-height {
+  height: calc(100vh - 5rem);
+  height: calc(100dvh - 5rem);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-plus-jakarta);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: rgba(0, 0, 0, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+:root.dark .glass-panel {
+  background: rgba(17, 24, 39, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root.dark .glass-panel-hover:hover {
+  background: rgba(17, 24, 39, 0.85);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+:root.dark .glass-nav {
+  background: rgba(11, 15, 25, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Premium Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes irisReveal {
+  from {
+    clip-path: circle(0% at var(--ox, 50%) var(--oy, 50%));
+  }
+  to {
+    clip-path: circle(140% at var(--ox, 50%) var(--oy, 50%));
+  }
+}
+
+@keyframes rippleBurst {
+  from {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.55;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.4; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
+}
+
+@keyframes blob {
+  0%, 100% { transform: translateY(10px); }
+  50% { transform: translate(-10px); }
+}
+
+.animate-blob {
+  animation: blob 2s ease-in-out infinite;
+}
+
+.animation-delay-1000 {
+  animation-delay: -1s;
+}
+
+/* Glowing text and buttons */
+.glow-nature:hover {
+  box-shadow: 0 0 20px rgba(22, 163, 74, 0.3);
+}
+
+.glow-circular:hover {
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+}
+
+.glow-future:hover {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+.glow-esg:hover {
+  box-shadow: 0 0 20px rgba(100, 116, 139, 0.3);
+}
+
+.glow-community:hover {
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
