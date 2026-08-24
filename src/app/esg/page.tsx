@@ -3,7 +3,9 @@
 import { useState } from "react";
 import Accordion from "@/components/Accordion";
 import MetricCard from "@/components/MetricCard";
+import ScrollReveal from "@/components/ScrollReveal";
 import BackToMissionsLink from "@/components/BackToMissionsLink";
+import PathwayHeroBanner from "@/components/PathwayHeroBanner";
 
 export default function EsgPage() {
   const [openAreaIndex, setOpenAreaIndex] = useState<number | null>(null);
@@ -87,29 +89,27 @@ export default function EsgPage() {
       <BackToMissionsLink />
 
       {/* Hero Section */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
-        <span className="text-slate-700 dark:text-slate-400 font-mono text-xs uppercase tracking-widest font-bold mb-3 block">
-          PATHWAY 04 — ESG & CSR
-        </span>
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-6 max-w-2xl">
-          Empowering Responsible Business
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg leading-relaxed max-w-2xl">
-          Our PABT ESG pathway supports enterprise transition. We combine compliance expertise with practical field programs, helping large listed entities and medium enterprises meet BRSR, carbon reduction targets, and CSR goals.
-        </p>
-      </section>
+      <PathwayHeroBanner
+        pathwayLabel="PATHWAY 04 — ESG & CSR"
+        labelClass="text-slate-700 dark:text-slate-400"
+        title="Empowering Responsible Business"
+        description="Our PABT ESG pathway supports enterprise transition. We combine compliance expertise with practical field programs, helping large listed entities and medium enterprises meet BRSR, carbon reduction targets, and CSR goals."
+        imageUrl="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1400&q=80"
+        imageAlt="Business partners shaking hands"
+      />
 
       {/* Metrics Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-100 dark:border-gray-900">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {metrics.map((m, i) => (
-            <MetricCard
-              key={i}
-              value={m.value}
-              label={m.label}
-              sublabel={m.sublabel}
-              themeColor="esg"
-            />
+            <ScrollReveal key={i} delay={i * 100}>
+              <MetricCard
+                value={m.value}
+                label={m.label}
+                sublabel={m.sublabel}
+                themeColor="esg"
+              />
+            </ScrollReveal>
           ))}
         </div>
       </section>
@@ -117,25 +117,26 @@ export default function EsgPage() {
       {/* Program Areas Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-100 dark:border-gray-900">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-4">
+          <ScrollReveal className="lg:col-span-4">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white mb-4">
               Our Core Program Areas
             </h2>
             <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
               We cover the entire spectrum of corporate responsibility. Explore our seven specific program domains below.
             </p>
-          </div>
+          </ScrollReveal>
           <div className="lg:col-span-8">
             {programAreas.map((area, idx) => (
-              <Accordion
-                key={idx}
-                number={area.number}
-                title={area.title}
-                items={area.items}
-                themeColor="esg"
-                isOpen={openAreaIndex === idx}
-                onToggle={() => setOpenAreaIndex(openAreaIndex === idx ? null : idx)}
-              />
+              <ScrollReveal key={idx} delay={idx * 60}>
+                <Accordion
+                  number={area.number}
+                  title={area.title}
+                  items={area.items}
+                  themeColor="esg"
+                  isOpen={openAreaIndex === idx}
+                  onToggle={() => setOpenAreaIndex(openAreaIndex === idx ? null : idx)}
+                />
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -143,41 +144,47 @@ export default function EsgPage() {
 
       {/* Flagship Projects */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-100 dark:border-gray-900">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white mb-10 text-center">
-          Flagship ESG Projects
-        </h2>
+        <ScrollReveal>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white mb-10 text-center">
+            Flagship ESG Projects
+          </h2>
+        </ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="glass-panel p-8 rounded-2xl border border-gray-200 dark:border-gray-800 flex flex-col justify-between">
-            <div className="space-y-4">
-              <span className="text-slate-700 dark:text-slate-400 font-mono text-xs uppercase tracking-widest font-bold">
-                PROJECT 01
-              </span>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">CSR ESG Transformation</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                Implementing verified and audited sustainability strategies for manufacturing and logistics firms. We build supply-chain frameworks that decrease carbon intensity and align to BRSR.
-              </p>
+          <ScrollReveal>
+            <div className="glass-panel p-8 rounded-2xl border border-gray-200 dark:border-gray-800 flex flex-col justify-between h-full">
+              <div className="space-y-4">
+                <span className="text-slate-700 dark:text-slate-400 font-mono text-xs uppercase tracking-widest font-bold">
+                  PROJECT 01
+                </span>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">CSR ESG Transformation</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                  Implementing verified and audited sustainability strategies for manufacturing and logistics firms. We build supply-chain frameworks that decrease carbon intensity and align to BRSR.
+                </p>
+              </div>
+              <div className="border-t border-gray-200 dark:border-gray-800 pt-6 mt-6 flex justify-between text-xs text-gray-600 dark:text-gray-400">
+                <span>Location: Pan-India</span>
+                <span>24 Enterprises Transformed</span>
+              </div>
             </div>
-            <div className="border-t border-gray-200 dark:border-gray-800 pt-6 mt-6 flex justify-between text-xs text-gray-600 dark:text-gray-400">
-              <span>Location: Pan-India</span>
-              <span>24 Enterprises Transformed</span>
-            </div>
-          </div>
+          </ScrollReveal>
 
-          <div className="glass-panel p-8 rounded-2xl border border-gray-200 dark:border-gray-800 flex flex-col justify-between">
-            <div className="space-y-4">
-              <span className="text-slate-700 dark:text-slate-400 font-mono text-xs uppercase tracking-widest font-bold">
-                PROJECT 02
-              </span>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">Supply Chain Greening</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                Auditing over 150 small-to-medium suppliers to reduce raw material waste, implement rooftop solar panels, and enforce ethical labor codes.
-              </p>
+          <ScrollReveal delay={150}>
+            <div className="glass-panel p-8 rounded-2xl border border-gray-200 dark:border-gray-800 flex flex-col justify-between h-full">
+              <div className="space-y-4">
+                <span className="text-slate-700 dark:text-slate-400 font-mono text-xs uppercase tracking-widest font-bold">
+                  PROJECT 02
+                </span>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">Supply Chain Greening</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                  Auditing over 150 small-to-medium suppliers to reduce raw material waste, implement rooftop solar panels, and enforce ethical labor codes.
+                </p>
+              </div>
+              <div className="border-t border-gray-200 dark:border-gray-800 pt-6 mt-6 flex justify-between text-xs text-gray-600 dark:text-gray-400">
+                <span>Location: Industrial Clusters (India)</span>
+                <span>150+ Suppliers Audited</span>
+              </div>
             </div>
-            <div className="border-t border-gray-200 dark:border-gray-800 pt-6 mt-6 flex justify-between text-xs text-gray-600 dark:text-gray-400">
-              <span>Location: Industrial Clusters (India)</span>
-              <span>150+ Suppliers Audited</span>
-            </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
     </div>

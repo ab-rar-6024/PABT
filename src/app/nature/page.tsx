@@ -130,24 +130,29 @@ export default function NaturePage() {
         labelClass="text-green-700 dark:text-green-400"
         title="Plant A Billion Trees"
         description="One sapling at a time, we're restoring degraded landscapes, reviving soil and water, and rebuilding biodiversity across India."
+        imageUrl="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1400&q=80"
+        imageAlt="Sunlit native forest canopy"
       />
       <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
-        <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg leading-relaxed max-w-3xl">
-          Our PABT Nature pathway focuses on combatting biodiversity loss, replenishing water basins, and planting a billion native trees. We combine traditional ecological knowledge with modern digital sensors to ensure that restoration results in permanent, thriving forests.
-        </p>
+        <ScrollReveal>
+          <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg leading-relaxed max-w-3xl">
+            Our PABT Nature pathway focuses on combatting biodiversity loss, replenishing water basins, and planting a billion native trees. We combine traditional ecological knowledge with modern digital sensors to ensure that restoration results in permanent, thriving forests.
+          </p>
+        </ScrollReveal>
       </section>
 
       {/* Metrics Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-100 dark:border-gray-900">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {metrics.map((m, i) => (
-            <MetricCard
-              key={i}
-              value={m.value}
-              label={m.label}
-              sublabel={m.sublabel}
-              themeColor="nature"
-            />
+            <ScrollReveal key={i} delay={i * 100}>
+              <MetricCard
+                value={m.value}
+                label={m.label}
+                sublabel={m.sublabel}
+                themeColor="nature"
+              />
+            </ScrollReveal>
           ))}
         </div>
       </section>
@@ -204,25 +209,26 @@ export default function NaturePage() {
       {/* Program Areas Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-100 dark:border-gray-900">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-4">
+          <ScrollReveal className="lg:col-span-4">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white mb-4">
               Our Core Program Areas
             </h2>
             <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
               Our ecological framework addresses the landscape level. We expand below the details of each action, which are fully customizable for CSR allocations.
             </p>
-          </div>
+          </ScrollReveal>
           <div className="lg:col-span-8">
             {programAreas.map((area, idx) => (
-              <Accordion
-                key={idx}
-                number={area.number}
-                title={area.title}
-                items={area.items}
-                themeColor="nature"
-                isOpen={openAreaIndex === idx}
-                onToggle={() => setOpenAreaIndex(openAreaIndex === idx ? null : idx)}
-              />
+              <ScrollReveal key={idx} delay={idx * 80}>
+                <Accordion
+                  number={area.number}
+                  title={area.title}
+                  items={area.items}
+                  themeColor="nature"
+                  isOpen={openAreaIndex === idx}
+                  onToggle={() => setOpenAreaIndex(openAreaIndex === idx ? null : idx)}
+                />
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -230,41 +236,47 @@ export default function NaturePage() {
 
       {/* Flagship Projects */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-100 dark:border-gray-900">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white mb-10 text-center">
-          Flagship Nature Projects
-        </h2>
+        <ScrollReveal>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white mb-10 text-center">
+            Flagship Nature Projects
+          </h2>
+        </ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="glass-panel p-8 rounded-2xl border border-gray-200 dark:border-gray-800 flex flex-col justify-between">
-            <div className="space-y-4">
-              <span className="text-green-700 dark:text-green-400 font-mono text-xs uppercase tracking-widest font-bold">
-                PROJECT 01
-              </span>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">Aravalli Green Belt</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                Rejuvenating degraded ridge land across Rajasthan. We have restored over 3,400 hectares using native seeds and drought-resistant trees.
-              </p>
+          <ScrollReveal>
+            <div className="glass-panel p-8 rounded-2xl border border-gray-200 dark:border-gray-800 flex flex-col justify-between h-full">
+              <div className="space-y-4">
+                <span className="text-green-700 dark:text-green-400 font-mono text-xs uppercase tracking-widest font-bold">
+                  PROJECT 01
+                </span>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">Aravalli Green Belt</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                  Rejuvenating degraded ridge land across Rajasthan. We have restored over 3,400 hectares using native seeds and drought-resistant trees.
+                </p>
+              </div>
+              <div className="border-t border-gray-200 dark:border-gray-800 pt-6 mt-6 flex justify-between text-xs text-gray-600 dark:text-gray-400">
+                <span>Location: Rajasthan, India</span>
+                <span>1.2M Native Saplings</span>
+              </div>
             </div>
-            <div className="border-t border-gray-200 dark:border-gray-800 pt-6 mt-6 flex justify-between text-xs text-gray-600 dark:text-gray-400">
-              <span>Location: Rajasthan, India</span>
-              <span>1.2M Native Saplings</span>
-            </div>
-          </div>
+          </ScrollReveal>
 
-          <div className="glass-panel p-8 rounded-2xl border border-gray-200 dark:border-gray-800 flex flex-col justify-between">
-            <div className="space-y-4">
-              <span className="text-green-700 dark:text-green-400 font-mono text-xs uppercase tracking-widest font-bold">
-                PROJECT 02
-              </span>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">Coastal Mangrove Revival</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                Restoring natural bio-shields in the Sundarbans. We work with local women self-help groups to cultivate and plant saline-tolerant mangrove saplings.
-              </p>
+          <ScrollReveal delay={150}>
+            <div className="glass-panel p-8 rounded-2xl border border-gray-200 dark:border-gray-800 flex flex-col justify-between h-full">
+              <div className="space-y-4">
+                <span className="text-green-700 dark:text-green-400 font-mono text-xs uppercase tracking-widest font-bold">
+                  PROJECT 02
+                </span>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">Coastal Mangrove Revival</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                  Restoring natural bio-shields in the Sundarbans. We work with local women self-help groups to cultivate and plant saline-tolerant mangrove saplings.
+                </p>
+              </div>
+              <div className="border-t border-gray-200 dark:border-gray-800 pt-6 mt-6 flex justify-between text-xs text-gray-600 dark:text-gray-400">
+                <span>Location: Sundarbans, West Bengal</span>
+                <span>100K Mangroves Planted</span>
+              </div>
             </div>
-            <div className="border-t border-gray-200 dark:border-gray-800 pt-6 mt-6 flex justify-between text-xs text-gray-600 dark:text-gray-400">
-              <span>Location: Sundarbans, West Bengal</span>
-              <span>100K Mangroves Planted</span>
-            </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
     </div>
