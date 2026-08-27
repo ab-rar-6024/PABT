@@ -27,6 +27,13 @@ export default function Footer() {
     { label: "Field Notes & Insights", href: "/insights" },
   ];
 
+  const joinUsLinks = [
+    { label: "Volunteer", href: "/volunteer" },
+    { label: "Internships", href: "/intern" },
+    { label: "Careers", href: "/career" },
+    { label: "CSR Partner", href: "/partner" },
+  ];
+
   // Contact info data
   const contactInfo = [
     {
@@ -133,9 +140,19 @@ export default function Footer() {
           {/* Engage Column */}
           <div>
             <h4 className="text-white text-sm font-bold uppercase tracking-widest mb-6">
-              Engage & Act
+              Join Us & Engage
             </h4>
             <ul className="space-y-3 text-sm">
+              {joinUsLinks.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="hover:text-green-400 font-semibold transition-colors flex items-center gap-1.5"
+                  >
+                    <span className="text-xs text-green-500">›</span> {link.label}
+                  </Link>
+                </li>
+              ))}
               {foundationLinks.map((link) => (
                 <li key={link.label}>
                   <Link
@@ -146,15 +163,6 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  href="/share-story"
-                  className="hover:text-[#3ca2fa] transition-colors flex items-center"
-                >
-                  Share Your Story
-                  <span className="ml-2 w-1.5 h-1.5 rounded-full bg-[#3ca2fa] animate-pulse"></span>
-                </Link>
-              </li>
             </ul>
           </div>
 

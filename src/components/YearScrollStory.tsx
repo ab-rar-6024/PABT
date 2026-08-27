@@ -1,6 +1,4 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
+import { Calendar, Circle } from "lucide-react";
 
 interface YearStep {
   year: string;
@@ -10,77 +8,63 @@ interface YearStep {
 }
 
 export default function YearScrollStory({ steps }: { steps: YearStep[] }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    stepRefs.current.forEach((el, i) => {
-      if (!el) return;
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveIndex(i);
-            }
-          });
-        },
-        { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
-      );
-      observer.observe(el);
-      observers.push(observer);
-    });
-    return () => observers.forEach((o) => o.disconnect());
-  }, [steps.length]);
-
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
-      {/* Sticky image — stays pinned while text steps scroll past on the right */}
-      <div className="hidden lg:block relative">
-        <div className="sticky top-28 h-[420px] rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-2xl">
-          {steps.map((step, i) => (
-            <img
-              key={step.year}
-              src={step.image}
-              alt={step.title}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out ${
-                i === activeIndex ? "opacity-100" : "opacity-0"
-              }`}
-            />
-          ))}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-          <div className="absolute bottom-6 left-6 text-green-400 font-mono text-xs uppercase tracking-widest font-bold">
-            {steps[activeIndex]?.year}
-          </div>
-        </div>
-      </div>
+    <div className="relative max-w-5xl mx-auto py-8">
+      {/* Central Vertical Timeline Line */}
+      <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-0.5 bg-green-500/30 hidden md:block" />
+      <div className="absolute top-0 bottom-0 left-4 w-0.5 bg-green-500/30 md:hidden" />
 
-      {/* Scrolling year steps */}
-      <div>
-        {steps.map((step, i) => (
-          <div
-            key={step.year}
-            ref={(el) => {
-              stepRefs.current[i] = el;
-            }}
-            className="min-h-[60vh] lg:min-h-[70vh] flex flex-col justify-center"
-          >
-            <div className="lg:hidden mb-6 h-56 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800">
-              <img src={step.image} alt={step.title} className="w-full h-full object-cover" />
-            </div>
+      <div className="space-y-12 md:space-y-16">
+        {steps.map((step, index) => {
+          const isEven = index % 2 === 0;
+          return (
             <div
-              className={`transition-opacity duration-500 ${
-                i === activeIndex ? "opacity-100" : "opacity-40"
-              }`}
+              key={step.year}
+              className="relative flex flex-col md:flex-row items-center justify-between group"
             >
-              <div className="text-green-700 dark:text-green-400 font-mono text-sm uppercase tracking-widest font-bold mb-2">
-                {step.year}
+              {/* Central Node Circle */}
+              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 top-6 w-5 h-5 rounded-full bg-white dark:bg-[#0B0F0E] border-4 border-green-500 shadow-md z-10 flex items-center justify-center">
+                <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
               </div>
-              <h3 className="text-gray-900 dark:text-white font-bold text-2xl sm:text-3xl mb-3">{step.title}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-base leading-relaxed max-w-md">{step.description}</p>
+
+              {/* Card Container - Left or Right depending on index */}
+              <div
+                className={`w-full md:w-[45%] pl-12 md:pl-0 ${
+                  isEven ? "md:pr-8 md:text-right md:mr-auto" : "md:pl-8 md:ml-auto"
+                }`}
+              >
+                <div className="rounded-3xl bg-gray-50 dark:bg-[#10150F] border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm hover:shadow-md transition-all space-y-0">
+                  <div className="relative h-52 overflow-hidden bg-gray-900">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={step.image}
+                      alt={step.title}
+                      className="w-full h-full object-cover object-center"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-transparent to-transparent" />
+                    
+                    <span className="absolute bottom-3 left-3 md:left-auto md:right-3 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-xs font-mono font-bold text-green-400">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {step.year}
+                    </span>
+                  </div>
+
+                  <div className="p-6 text-left space-y-2">
+                    <span className="text-xs font-mono font-bold text-green-600 dark:text-green-400 uppercase tracking-widest block">
+                      {step.year} Milestone
+                    </span>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                      {step.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

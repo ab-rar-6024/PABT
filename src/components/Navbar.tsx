@@ -51,17 +51,27 @@ const MISSIONS = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [missionsOpen, setMissionsOpen] = useState(false);
+  const [joinUsOpen, setJoinUsOpen] = useState(false);
   const [hoveredMission, setHoveredMission] = useState(0);
   const [prevHovered, setPrevHovered] = useState<number | null>(null);
   const pathname = usePathname();
   const menuRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const joinUsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const navLinks = [
     { name: "About PABT", href: "/about" },
     { name: "Our 5 Missions", href: "/missions", hasMega: true },
     { name: "Projects", href: "/projects" },
     { name: "Insights", href: "/insights" },
+    { name: "Join Us", href: "/join-us", hasJoinUsDropdown: true },
+  ];
+
+  const JOIN_US_ITEMS = [
+    { name: "Volunteer", href: "/volunteer" },
+    { name: "Intern", href: "/intern" },
+    { name: "Career", href: "/career" },
+    { name: "Partner", href: "/partner" },
   ];
 
   const openMissions = useCallback(() => {
@@ -71,6 +81,15 @@ export default function Navbar() {
 
   const closeMissions = useCallback(() => {
     closeTimer.current = setTimeout(() => setMissionsOpen(false), 120);
+  }, []);
+
+  const openJoinUs = useCallback(() => {
+    if (joinUsTimer.current) clearTimeout(joinUsTimer.current);
+    setJoinUsOpen(true);
+  }, []);
+
+  const closeJoinUs = useCallback(() => {
+    joinUsTimer.current = setTimeout(() => setJoinUsOpen(false), 120);
   }, []);
 
   const handleMissionHover = (i: number) => {
@@ -84,6 +103,7 @@ export default function Navbar() {
     const handler = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setMissionsOpen(false);
+        setJoinUsOpen(false);
       }
     };
     document.addEventListener("mousedown", handler);
@@ -93,6 +113,7 @@ export default function Navbar() {
   // Close on route change
   useEffect(() => {
     setMissionsOpen(false);
+    setJoinUsOpen(false);
     setIsOpen(false);
   }, [pathname]);
 
@@ -247,6 +268,71 @@ export default function Navbar() {
                   </div>
                 );
               }
+              if (link.hasJoinUsDropdown) {
+                const isJoinActive =
+                  pathname?.startsWith("/join-us") ||
+                  pathname === "/volunteer" ||
+                  pathname === "/intern" ||
+                  pathname === "/career" ||
+                  pathname === "/partner";
+                return (
+                  <div
+                    key={link.name}
+                    className="relative"
+                    onMouseEnter={openJoinUs}
+                    onMouseLeave={closeJoinUs}
+                  >
+                    <Link
+                      href={link.href}
+                      className={`relative text-sm font-semibold tracking-wide transition-colors duration-300 py-2 px-1 hover:text-gray-900 dark:hover:text-white flex items-center gap-1 ${
+                        isJoinActive ? "text-gray-900 dark:text-white font-bold" : "text-gray-500 dark:text-gray-300"
+                      }`}
+                      aria-expanded={joinUsOpen}
+                      aria-haspopup="true"
+                    >
+                      {link.name}
+                      <svg
+                        className={`w-3.5 h-3.5 transition-transform duration-300 ${joinUsOpen ? "rotate-180" : ""}`}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                      >
+                        <path d="M6 9l6 6 6-6" />
+                      </svg>
+                      {isJoinActive && (
+                        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-green-500 rounded-full" />
+                      )}
+                    </Link>
+
+                    {/* Join Us Dropdown matching user's image styling */}
+                    {joinUsOpen && (
+                      <div
+                        className="absolute top-full left-0 mt-2 w-48 py-3 rounded-2xl bg-[#F7F6F0] dark:bg-[#131814] border border-gray-200/80 dark:border-gray-800 shadow-xl z-50 transition-all duration-200 space-y-1"
+                        onMouseEnter={openJoinUs}
+                        onMouseLeave={closeJoinUs}
+                      >
+                        {JOIN_US_ITEMS.map((item) => {
+                          const isSubActive = pathname === item.href || pathname === `/join-us${item.href}`;
+                          return (
+                            <Link
+                              key={item.name}
+                              href={item.href}
+                              className={`block px-5 py-2.5 text-sm font-bold tracking-wide transition-colors ${
+                                isSubActive
+                                  ? "text-green-600 dark:text-green-400 bg-black/5 dark:bg-white/5"
+                                  : "text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"
+                              }`}
+                            >
+                              {item.name}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
               return (
                 <Link
                   key={link.name}
@@ -315,6 +401,24 @@ export default function Navbar() {
                 </Link>
               );
             })}
+
+            {/* Mobile Join Us sub-list */}
+            <div className="px-3 pt-2 pb-2 border-t border-gray-100 dark:border-gray-800">
+              <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2">Join Us</p>
+              <div className="grid grid-cols-2 gap-2">
+                {JOIN_US_ITEMS.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-between px-3 py-2.5 rounded-lg bg-gray-50 dark:bg-gray-900 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  >
+                    <span>{item.name}</span>
+                    <span className="text-xs text-gray-400">→</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
 
             {/* Mobile missions sub-list */}
             <div className="px-3 pt-1 pb-2">

@@ -6,9 +6,11 @@ import MetricCard from "@/components/MetricCard";
 import ScrollReveal from "@/components/ScrollReveal";
 import BackToMissionsLink from "@/components/BackToMissionsLink";
 import PathwayHeroBanner from "@/components/PathwayHeroBanner";
+import { Sparkles, CheckCircle2, ShieldCheck } from "lucide-react";
 
 export default function NaturePage() {
   const [openAreaIndex, setOpenAreaIndex] = useState<number | null>(null);
+
   const metrics = [
     { value: "1.2M+", label: "Trees Planted", sublabel: "Native forests across Rajasthan & Sundarbans." },
     { value: "128", label: "Water Bodies Restored", sublabel: "Lakes, ponds, and local community wetlands." },
@@ -278,6 +280,67 @@ export default function NaturePage() {
             </div>
           </ScrollReveal>
         </div>
+      </section>
+
+      {/* Upcoming Project: CelebriTree (Clean Hero Feature Card) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-100 dark:border-gray-900">
+        <ScrollReveal>
+          <div className="text-center mb-10 space-y-2">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-green-100 dark:bg-green-950 text-green-700 dark:text-green-400 text-xs font-mono font-bold uppercase tracking-widest border border-green-500/30">
+              <Sparkles className="w-3.5 h-3.5 text-green-500" />
+              UPCOMING PROJECT
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white">
+              CelebriTree
+            </h2>
+          </div>
+
+          <div className="rounded-3xl bg-gray-50 dark:bg-[#10150F] border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm">
+            <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
+              {/* Left Photo */}
+              <div className="lg:col-span-6 relative h-[320px] sm:h-[420px] overflow-hidden bg-gray-900">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/celebritree_partner.jpg"
+                  alt="CelebriTree PABT Foundation Official Partnership"
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-950/70 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md text-green-400 font-mono text-xs font-bold border border-white/10">
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>Official Implementation Partner: PABT Foundation</span>
+                </div>
+              </div>
+
+              {/* Right Content */}
+              <div className="lg:col-span-6 p-8 sm:p-12 space-y-6">
+                <div className="space-y-2">
+                  <span className="text-xs font-mono font-bold text-green-600 dark:text-green-400 uppercase tracking-widest">
+                    Fan-Powered Environmental Action
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">
+                    Connecting Fan Communities with Green Impact
+                  </h3>
+                </div>
+
+                <ul className="space-y-4 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span><strong>Celebrity & Fan Action:</strong> Brings together celebrities, their fan communities, and meaningful tree-plantation drives across India.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span><strong>Full PABT Stewardship:</strong> PABT Foundation identifies suitable sites, secures permissions, plants native saplings, and provides maintenance for up to 24 months.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span><strong>Geo-Tagged Evidence:</strong> Every contribution includes geo-tagging and photo proof, creating a lasting bond between fans, celebrities, and nature.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   );

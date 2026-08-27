@@ -30,38 +30,38 @@ export default function AboutPage() {
   const timeline = [
     {
       year: "Year 1",
-      title: "Plant A Billion Trees begins",
-      description: "PABT started as a single-purpose afforestation drive, focused on native species restoration in degraded rural land.",
-      image: "https://images.unsplash.com/photo-1611843467160-25afb8df1074?auto=format&fit=crop&w=1200&q=80",
+      title: "Plant A Billion Trees Begins",
+      description: "PABT started as a single-purpose afforestation drive, focused on native species restoration in degraded rural land and Miyawaki forests.",
+      image: "/nature_hero.png",
     },
     {
       year: "Year 2",
-      title: "Circularity joins the mission",
-      description: "We saw that thriving forests need clean watersheds and waste-free communities around them, so PABT Circular was born.",
-      image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=1200&q=80",
+      title: "Circularity Joins the Mission",
+      description: "We saw that thriving forests need clean watersheds and waste-free communities around them, so PABT Circular waste diversion was born.",
+      image: "/circular_hero.png",
     },
     {
       year: "Year 3",
-      title: "Clean energy & ESG pathways launch",
-      description: "PABT Future brought solar micro-grids to off-grid communities, while PABT ESG began helping companies fund verified impact.",
-      image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=1200&q=80",
+      title: "Clean Energy & ESG Pathways Launch",
+      description: "PABT Future brought solar micro-grids to off-grid communities, while PABT ESG began helping corporate partners audit and fund verified impact.",
+      image: "/future_hero.png",
     },
     {
       year: "Today",
-      title: "Five pathways, one movement",
-      description: "PABT Community now mobilizes schools and volunteers, completing a system where nature, industry, and citizens move together.",
-      image: "https://images.unsplash.com/photo-1634151389979-2dea7604b36f?auto=format&fit=crop&w=1200&q=80",
+      title: "Five Pathways, One Movement",
+      description: "PABT Community now mobilizes schools and volunteers, completing an ecosystem where nature, industry, and citizens move together.",
+      image: "/community_hero.png",
     },
   ];
 
   return (
-    <div className="relative pb-24">
-      <div className="absolute top-10 left-1/3 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse-slow -z-10" />
+    <div className="relative pb-24 pt-16">
+      <div className="absolute top-10 left-1/3 w-[500px] h-[500px] bg-green-500/10 rounded-full blur-[120px] animate-pulse -z-10" />
 
       {/* Hero */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 text-center">
-        <span className="text-green-700 dark:text-green-400 font-mono text-xs uppercase tracking-widest font-bold mb-3 block animate-float">
-          About PABT
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-12 text-center space-y-4">
+        <span className="text-green-700 dark:text-green-400 font-mono text-xs uppercase tracking-widest font-bold block">
+          ABOUT PABT FOUNDATION
         </span>
         <TextType
           as="h1"
@@ -71,41 +71,42 @@ export default function AboutPage() {
           loop={false}
           showCursor={true}
           cursorCharacter="|"
-          className="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-6"
+          className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white tracking-tight"
         />
-        <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
+        <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto font-medium">
           PABT Foundation is an India-based nonprofit working across nature restoration, circular resource management, clean energy, corporate ESG advisory, and grassroots community action. We believe environmental repair only lasts when it&apos;s tied to livelihoods, transparency, and local ownership.
         </p>
       </section>
 
-      {/* Timeline */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-100 dark:border-gray-900">
-        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-14 text-center">
-          <TextType
-            as="span"
-            text="How We Got Here"
-            typingSpeed={45}
-            loop={false}
-            showCursor={true}
-            cursorCharacter="|"
-            startOnVisible={true}
-          />
-        </h2>
+      {/* Timeline Section: How We Got Here */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800/80">
+        <div className="text-center mb-16 space-y-2">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-green-600 dark:text-green-400">
+            OUR TIMELINE & HISTORY
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white">
+            How We Got Here
+          </h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Scroll down to walk through our journey year by year.
+          </p>
+        </div>
+
         <YearScrollStory steps={timeline} />
       </section>
 
       {/* Values */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-100 dark:border-gray-900">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800/80">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-4">What Guides Our Work</h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-            Four principles shape every project we take on, across all five pathways.
+          <p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto text-sm">
+            Four core principles shape every project we take on, across all five pathways.
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {values.map((value) => (
-            <div key={value.title} className="glass-panel rounded-2xl border border-gray-200/80 dark:border-gray-800/80 p-6">
-              <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-2">{value.title}</h3>
+            <div key={value.title} className="p-8 rounded-3xl bg-gray-50 dark:bg-[#10150F] border border-gray-200 dark:border-gray-800 space-y-2 shadow-sm hover:shadow-md transition-all">
+              <h3 className="text-gray-900 dark:text-white font-bold text-lg">{value.title}</h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{value.description}</p>
             </div>
           ))}
@@ -113,17 +114,17 @@ export default function AboutPage() {
       </section>
 
       {/* Trust & Registration */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-100 dark:border-gray-900">
-        <div className="glass-panel rounded-2xl border border-gray-200 dark:border-gray-800 p-8 text-center">
-          <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white mb-3">Registered & Audited</h2>
-          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6 max-w-2xl mx-auto">
-            PABT Foundation operates out of Chennai and Bengaluru, India, and is fully registered for corporate and individual giving.
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800/80">
+        <div className="p-10 rounded-3xl bg-gray-50 dark:bg-[#10150F] border border-gray-200 dark:border-gray-800 text-center space-y-4 shadow-lg">
+          <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white">Registered & Audited NGO</h2>
+          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed max-w-2xl mx-auto">
+            PABT Foundation operates out of Chennai and Bengaluru, India, and is fully registered for corporate CSR and individual giving.
           </p>
-          <div className="flex flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-wider">
-            <span className="px-4 py-2 rounded-full bg-green-50/60 dark:bg-green-950/60 border border-green-500/30 text-green-700 dark:text-green-400">12A Tax-Exempt</span>
-            <span className="px-4 py-2 rounded-full bg-green-50/60 dark:bg-green-950/60 border border-green-500/30 text-green-700 dark:text-green-400">80G Deductible</span>
-            <span className="px-4 py-2 rounded-full bg-green-50/60 dark:bg-green-950/60 border border-green-500/30 text-green-700 dark:text-green-400">CSR-1 Registered</span>
-            <span className="px-4 py-2 rounded-full bg-green-50/60 dark:bg-green-950/60 border border-green-500/30 text-green-700 dark:text-green-400">Third-Party Audited</span>
+          <div className="flex flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-wider pt-2">
+            <span className="px-4 py-2 rounded-full bg-green-100 dark:bg-green-950 border border-green-500/30 text-green-700 dark:text-green-400">12A Tax-Exempt</span>
+            <span className="px-4 py-2 rounded-full bg-green-100 dark:bg-green-950 border border-green-500/30 text-green-700 dark:text-green-400">80G Deductible</span>
+            <span className="px-4 py-2 rounded-full bg-green-100 dark:bg-green-950 border border-green-500/30 text-green-700 dark:text-green-400">CSR-1 Registered</span>
+            <span className="px-4 py-2 rounded-full bg-green-100 dark:bg-green-950 border border-green-500/30 text-green-700 dark:text-green-400">Third-Party Audited</span>
           </div>
         </div>
       </section>
