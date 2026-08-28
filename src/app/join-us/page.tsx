@@ -7,10 +7,10 @@ const pathways = [
     href: "/volunteer",
     icon: Users,
     image: "/volunteer_drive.png",
-    tagline: "Be the Change on the Field",
+    tagline: "PABT Green Community – Chennai",
     description:
-      "Join our community of changemakers across Environment, Education, and Humanity. Participate in weekend tree plantation drives, seed-ball making, Miyawaki forestry, and youth workshops.",
-    highlights: ["On-field plantation & Miyawaki drives", "Flexible weekend participation", "Volunteer certificate & recognition", "Direct community impact"],
+      "Join the official PABT Green Community bringing together NSS Volunteers, Eco Club Members, students, and citizens across 7 focus areas to create a greener Chennai. Connect directly via WhatsApp!",
+    highlights: ["Official WhatsApp Community Groups", "7 Core Environmental Focus Areas", "NSS & Eco Club Student Networks", "Flexible Weekend Drives & Miyawaki Planting"],
   },
   {
     title: "Intern",
@@ -46,30 +46,30 @@ const pathways = [
 
 export default function JoinUsPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0B0F0E] text-gray-900 dark:text-gray-100 pt-28 pb-24 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white dark:bg-[#0B0F0E] text-gray-900 dark:text-gray-100 pt-20 sm:pt-28 pb-16 sm:pb-24 px-3 sm:px-6 lg:px-8 overflow-x-hidden">
       {/* Hero Header */}
-      <div className="max-w-4xl mx-auto text-center mb-16 space-y-4">
-        <span className="text-xs font-mono font-bold uppercase tracking-widest text-green-600 dark:text-green-400">
+      <div className="max-w-4xl mx-auto text-center mb-10 sm:mb-16 space-y-3 sm:space-y-4">
+        <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-widest text-green-600 dark:text-green-400">
           JOIN THE MOVEMENT
         </span>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-snug">
           Join Us in Creating a{" "}
           <span className="text-green-600 dark:text-green-400">
             Greener, Kinder World
           </span>
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed px-2">
           The name <span className="font-bold text-gray-900 dark:text-white">“Thuvakkam”</span> translates to <span className="italic text-green-600 dark:text-green-400">“Beginning”</span>. 
           Explore the pathways below to start driving real-world environmental and societal impact.
         </p>
       </div>
 
       {/* Vertical Timeline Layout for Pathways */}
-      <div className="max-w-5xl mx-auto relative mb-20">
+      <div className="max-w-5xl mx-auto relative mb-16 sm:mb-20">
         {/* Timeline Central Line */}
-        <div className="absolute top-0 bottom-0 left-4 md:left-1/2 -translate-x-1/2 w-0.5 bg-green-500/30" />
+        <div className="absolute top-0 bottom-0 left-2.5 sm:left-4 md:left-1/2 -translate-x-1/2 w-0.5 bg-green-500/30" />
 
-        <div className="space-y-12 md:space-y-16">
+        <div className="space-y-8 sm:space-y-12 md:space-y-16">
           {pathways.map((item, index) => {
             const IconComponent = item.icon;
             const isEven = index % 2 === 0;
@@ -80,13 +80,13 @@ export default function JoinUsPage() {
                 className="relative flex flex-col md:flex-row items-center justify-between"
               >
                 {/* Central Circle Marker */}
-                <div className="absolute left-4 md:left-1/2 -translate-x-1/2 top-6 w-6 h-6 rounded-full bg-white dark:bg-[#0B0F0E] border-4 border-green-500 shadow-md z-10 flex items-center justify-center">
-                  <div className="w-2 h-2 rounded-full bg-green-500" />
+                <div className="absolute left-2.5 sm:left-4 md:left-1/2 -translate-x-1/2 top-6 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white dark:bg-[#0B0F0E] border-4 border-green-500 shadow-md z-10 flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500" />
                 </div>
 
                 {/* Card Container */}
                 <div
-                  className={`w-full md:w-[46%] pl-12 md:pl-0 ${
+                  className={`w-full md:w-[46%] pl-7 sm:pl-12 md:pl-0 ${
                     isEven ? "md:pr-8 md:text-right md:mr-auto" : "md:pl-8 md:ml-auto"
                   }`}
                 >
