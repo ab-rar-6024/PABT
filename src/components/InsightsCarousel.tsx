@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Link from "next/link";
 
 interface InsightCardData {
@@ -78,150 +78,98 @@ const insights: InsightCardData[] = [
   },
 ];
 
-// Helper Tick Component for scroll indicator wave animation
-function Tick({
-  index,
-  scrollYProgress,
-  total,
-}: {
-  index: number;
-  scrollYProgress: MotionValue<number>;
-  total: number;
-}) {
-  const distance = useTransform(scrollYProgress, (progress) => {
-    const activeIndex = progress * (total - 1);
-    return Math.abs(index - activeIndex);
-  });
-
-  const height = useTransform(distance, [0, 3, 6], [18, 9, 4]);
-  const opacity = useTransform(distance, [0, 3, 6], [1, 0.4, 0.08]);
-  const backgroundColor = useTransform(
-    distance,
-    [0, 2, 4],
-    ["#22c55e", "#10b981", "#9ca3af"]
-  );
-
-  return (
-    <motion.div
-      style={{ height, opacity, backgroundColor }}
-      className="w-[2px] rounded-full shrink-0"
-    />
-  );
-}
-
 export default function InsightsCarousel() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Detect mobile viewports to fall back to horizontal swipe layout
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
+    offset: ["start end", "end start"],
   });
 
-  // Create a smoothed spring progress value to emulate GSAP's scroll scrub easing (fluid lag)
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 45,
-    damping: 18,
-    mass: 1,
-    restDelta: 0.001
+    stiffness: 80,
+    damping: 25,
+    mass: 0.2,
+    restDelta: 0.001,
   });
 
-  // Scroll horizontal cards translation using the smoothed spring progress value
-  // Moves from 15vw (initial padding) to -135vw (scroll end)
-  const x = useTransform(smoothProgress, [0, 1], ["15vw", "-135vw"]);
+  // Translates cards from right to left (150px to -650px) as user scrolls down the page naturally
+  const x = useTransform(smoothProgress, [0, 1], ["120px", "-680px"]);
 
-  const numTicks = 70;
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -380, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 380, behavior: "smooth" });
+    }
+  };
 
   return (
-    <div ref={containerRef} className="relative w-full" style={{ height: isMobile ? "auto" : "280vh" }}>
-      {/* Parallax / Sticky Container - Offset by navbar height (top-20) and height adjusted */}
-      <div className={isMobile ? "relative w-full py-16" : "sticky top-20 h-[calc(100vh-5rem)] w-full flex flex-col justify-center overflow-hidden bg-gray-50 dark:bg-gray-950 transition-colors duration-500"}>
-        
-        {/* Giant Watermark Text in Background */}
-        {!isMobile && (
-          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 select-none pointer-events-none text-center z-0 overflow-hidden">
-            <h2 className="text-[16vw] font-black uppercase tracking-tighter text-gray-200/30 dark:text-gray-900/10 leading-none whitespace-nowrap">
-              FIELD NOTES
-            </h2>
-          </div>
-        )}
+    <div
+      ref={containerRef}
+      className="relative w-full bg-gray-50 dark:bg-[#070908] py-16 transition-colors duration-500 overflow-hidden"
+    >
+      {/* Giant Watermark Text in Background */}
+      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 select-none pointer-events-none text-center z-0 overflow-hidden">
+        <h2 className="text-[15vw] font-black uppercase tracking-tighter text-gray-200/35 dark:text-gray-900/15 leading-none whitespace-nowrap">
+          FIELD NOTES
+        </h2>
+      </div>
 
-        {/* Heading Section - Tighter margins to fit vertical viewport */}
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 w-full z-10 flex flex-col md:flex-row md:items-end justify-between mb-6 gap-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 relative space-y-8">
+        {/* Heading & Scroll Buttons */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-200/80 dark:border-gray-800/80 pb-6">
           <div>
-            <span className="text-green-600 dark:text-green-400 font-mono text-xs uppercase tracking-widest font-bold mb-1.5 block">
+            <span className="text-green-600 dark:text-green-400 font-mono text-xs uppercase tracking-widest font-bold mb-1 block">
               PABT Insights & Outcomes
             </span>
-            <h1 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white tracking-tight">
+            <h1 className="text-3xl sm:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
               Trusted Partners.
             </h1>
           </div>
-          <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm leading-relaxed max-w-md">
-            Hover over the cards to highlight project details. Scroll down to translate pages horizontally and explore outcomes.
-          </p>
+
+          <div className="flex items-center gap-4">
+            <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm leading-relaxed max-w-sm hidden sm:block">
+              Explore our latest ecosystem insights, forestry research, and community action notes.
+            </p>
+
+            {/* Left/Right Arrow Navigation Buttons */}
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={scrollLeft}
+                aria-label="Scroll left"
+                className="w-10 h-10 rounded-xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:border-green-500/40 shadow-sm transition-all cursor-pointer"
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                onClick={scrollRight}
+                aria-label="Scroll right"
+                className="w-10 h-10 rounded-xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:border-green-500/40 shadow-sm transition-all cursor-pointer"
+              >
+                →
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Scroll Progress Tick Bar (Hidden on Mobile) - Tighter margins */}
-        {!isMobile && (
-          <div className="max-w-7xl mx-auto px-6 sm:px-12 w-full z-10 flex items-center justify-center gap-1.5 h-6 mb-8 select-none">
-            {Array.from({ length: numTicks }).map((_, i) => (
-              <Tick key={i} index={i} scrollYProgress={smoothProgress} total={numTicks} />
-            ))}
-          </div>
-        )}
-
-        {/* Carousel / Cards List */}
-        {isMobile ? (
-          // Mobile Layout: Touch swipe scrollable row
-          <div className="flex overflow-x-auto gap-6 px-6 py-6 snap-x snap-mandatory scrollbar-none w-full z-10">
-            {insights.map((card, index) => (
-              <div
-                key={index}
-                className="w-[300px] shrink-0 snap-center rounded-2xl bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 p-6 shadow-md"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <img
-                    src={card.image}
-                    alt={card.author}
-                    className="size-11 rounded-full object-cover border border-green-500/20"
-                  />
-                  <div>
-                    <h4 className="font-bold text-gray-900 dark:text-white text-sm">
-                      {card.author}
-                    </h4>
-                    <p className="text-[10px] text-green-600 dark:text-green-400 font-mono uppercase tracking-wider">
-                      {card.role} • {card.domain}
-                    </p>
-                  </div>
-                </div>
-                <h3 className="font-extrabold text-gray-900 dark:text-white text-base leading-snug mb-2">
-                  {card.title}
-                </h3>
-                <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-6">
-                  {card.description}
-                </p>
-                <div className="mt-4 flex justify-between items-center text-[10px] font-mono text-gray-400 dark:text-gray-500 uppercase tracking-widest font-bold">
-                  <span>{card.readTime}</span>
-                  <Link href={card.href} className="text-green-600 dark:text-green-400 hover:underline">
-                    Read Post →
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          // Desktop Layout: Parallax horizontal scroll on vertical page scroll - Adjusted card width/aspect ratio
+        {/* Scroll-Driven Translating Cards Container */}
+        <div
+          ref={scrollRef}
+          className="overflow-x-auto scrollbar-none py-4 scroll-smooth"
+          style={{ scrollbarWidth: "none" }}
+        >
           <motion.div
             style={{ x }}
-            className="flex gap-8 w-max px-[10vw] z-10 py-4 select-none"
+            className="flex gap-8 w-max px-4 select-none"
           >
             {insights.map((card, index) => {
               const isHovered = hoveredIndex === index;
@@ -234,22 +182,22 @@ export default function InsightsCarousel() {
                   onMouseLeave={() => setHoveredIndex(null)}
                   animate={{
                     scale: isHovered ? 1.03 : isOtherHovered ? 0.97 : 1,
-                    filter: isOtherHovered ? "blur(4px) brightness(0.5)" : "blur(0px) brightness(1)",
-                    opacity: isOtherHovered ? 0.45 : 1,
+                    filter: isOtherHovered ? "blur(3px) brightness(0.6)" : "blur(0px) brightness(1)",
+                    opacity: isOtherHovered ? 0.5 : 1,
                   }}
-                  transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
-                  className={`w-[370px] shrink-0 aspect-[1/1] rounded-2xl p-6 flex flex-col justify-between cursor-pointer border transition-all duration-500 ${
+                  transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+                  className={`w-[320px] sm:w-[360px] shrink-0 rounded-3xl p-7 flex flex-col justify-between cursor-pointer border transition-all duration-300 ${
                     isHovered
-                      ? "bg-stone-100 dark:bg-stone-900 border-green-500/25 shadow-2xl"
-                      : "bg-white/80 dark:bg-zinc-900/85 border-gray-200/50 dark:border-zinc-800/50 shadow-lg"
+                      ? "bg-white dark:bg-zinc-900 border-green-500/40 shadow-2xl"
+                      : "bg-white/90 dark:bg-zinc-900/85 border-gray-200/60 dark:border-zinc-800/60 shadow-lg"
                   }`}
                 >
-                  {/* Top Section: User Meta */}
+                  {/* User Header */}
                   <div className="flex items-center gap-3.5">
                     <img
                       src={card.image}
                       alt={card.author}
-                      className="size-11 rounded-full object-cover border-2 border-green-500/20"
+                      className="w-11 h-11 rounded-full object-cover border-2 border-green-500/20"
                     />
                     <div>
                       <h4 className="font-extrabold text-gray-900 dark:text-white text-sm leading-none">
@@ -261,7 +209,7 @@ export default function InsightsCarousel() {
                     </div>
                   </div>
 
-                  {/* Middle Section: Quote / Post snippet */}
+                  {/* Content */}
                   <div className="flex-grow flex flex-col justify-center my-4">
                     <h3 className="font-black text-gray-900 dark:text-white text-base tracking-tight leading-snug mb-2">
                       {card.title}
@@ -271,9 +219,9 @@ export default function InsightsCarousel() {
                     </p>
                   </div>
 
-                  {/* Bottom Section: Footer Actions */}
-                  <div className="flex justify-between items-center border-t border-gray-100 dark:border-zinc-800/80 pt-3">
-                    <span className="text-[9px] font-mono font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                  {/* Footer Actions */}
+                  <div className="flex justify-between items-center border-t border-gray-100 dark:border-zinc-800/80 pt-4">
+                    <span className="text-[10px] font-mono font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
                       {card.readTime}
                     </span>
                     <Link
@@ -288,7 +236,7 @@ export default function InsightsCarousel() {
               );
             })}
           </motion.div>
-        )}
+        </div>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function InsightsPage() {
   return (
-    <div className="relative pt-12 pb-24">
+    <div className="relative pt-4 pb-0 overflow-hidden">
       <InsightsCarousel />
     </div>
   );
