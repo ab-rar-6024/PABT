@@ -1,26 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/components/ThemeProvider";
 
 export default function ThemeToggle() {
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
-  useEffect(() => {
-    // Server has no theme knowledge, so the first client render must match the
-    // server's output (mounted=false) to avoid a hydration mismatch; the real
-    // theme is applied right after mount, once client and server are in sync.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
-
-  const isDark = mounted && resolvedTheme === "dark";
+  const isDark = theme === "dark";
 
   return (
     <button
       type="button"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={toggleTheme}
       aria-label="Toggle light and dark mode"
       className="relative w-14 h-8 rounded-full border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 transition-colors duration-300 flex items-center px-1 cursor-pointer flex-shrink-0"
     >

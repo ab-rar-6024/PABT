@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/ThemeProvider";
 import SplashScreen from "@/components/SplashScreen";
+import NavigationLoader from "@/components/NavigationLoader";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export const metadata: Metadata = {
   title: "PABT Foundation | Planting a Billion Trees & Circular Communities",
@@ -17,15 +19,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <body className="bg-background text-foreground flex flex-col min-h-screen transition-colors duration-300">
         <ThemeProvider>
+          <NavigationLoader />
           <SplashScreen />
           <Navbar />
           <main className="flex-grow pt-20">
             {children}
           </main>
           <Footer />
+          <ScrollToTop />
         </ThemeProvider>
       </body>
     </html>

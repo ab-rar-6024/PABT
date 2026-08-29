@@ -1,4 +1,8 @@
+"use client";
+
+import { useRef } from "react";
 import Link from "next/link";
+import { useScroll, useTransform, motion } from "framer-motion";
 import { Users, GraduationCap, Briefcase, Handshake, ArrowRight, CheckCircle2 } from "lucide-react";
 
 const pathways = [
@@ -45,6 +49,15 @@ const pathways = [
 ];
 
 export default function JoinUsPage() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 80%", "end 20%"],
+  });
+
+  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   return (
     <div className="min-h-screen bg-white dark:bg-[#0B0F0E] text-gray-900 dark:text-gray-100 pt-20 sm:pt-28 pb-16 sm:pb-24 px-3 sm:px-6 lg:px-8 overflow-x-hidden">
       {/* Hero Header */}
@@ -65,9 +78,21 @@ export default function JoinUsPage() {
       </div>
 
       {/* Vertical Timeline Layout for Pathways */}
-      <div className="max-w-5xl mx-auto relative mb-16 sm:mb-20">
-        {/* Timeline Central Line */}
-        <div className="absolute top-0 bottom-0 left-2.5 sm:left-4 md:left-1/2 -translate-x-1/2 w-0.5 bg-green-500/30" />
+      <div ref={containerRef} className="max-w-5xl mx-auto relative mb-16 sm:mb-20 py-4">
+        {/* Track line (faint background) */}
+        <div className="absolute top-0 bottom-0 left-2.5 sm:left-4 md:left-1/2 -translate-x-1/2 w-0.5 bg-green-500/15" />
+
+        {/* Scroll-driven fill line (Desktop) */}
+        <motion.div
+          style={{ scaleY, transformOrigin: "top" }}
+          className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-0.5 bg-gradient-to-b from-green-400 via-green-500 to-green-600 hidden md:block"
+        />
+
+        {/* Scroll-driven fill line (Mobile) */}
+        <motion.div
+          style={{ scaleY, transformOrigin: "top" }}
+          className="absolute top-0 bottom-0 left-2.5 sm:left-4 w-0.5 bg-gradient-to-b from-green-400 via-green-500 to-green-600 md:hidden"
+        />
 
         <div className="space-y-8 sm:space-y-12 md:space-y-16">
           {pathways.map((item, index) => {
@@ -75,9 +100,13 @@ export default function JoinUsPage() {
             const isEven = index % 2 === 0;
 
             return (
-              <div
+              <motion.div
                 key={item.title}
-                className="relative flex flex-col md:flex-row items-center justify-between"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative flex flex-col md:flex-row items-center justify-between group"
               >
                 {/* Central Circle Marker */}
                 <div className="absolute left-2.5 sm:left-4 md:left-1/2 -translate-x-1/2 top-6 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white dark:bg-[#0B0F0E] border-4 border-green-500 shadow-md z-10 flex items-center justify-center">
@@ -138,7 +167,7 @@ export default function JoinUsPage() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

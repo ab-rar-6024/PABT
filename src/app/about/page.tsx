@@ -116,6 +116,53 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Our Programmes */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800/80">
+        <div className="text-center mb-14 space-y-2">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-green-600 dark:text-green-400">
+            WHAT WE DO
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white">
+            Our Programmes
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+          {/* Environment */}
+          <div className="flex flex-col items-center text-center p-8 rounded-3xl bg-gray-50 dark:bg-[#10150F] border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 group">
+            <div className="w-20 h-20 mb-6 flex items-center justify-center rounded-2xl bg-green-50 dark:bg-green-950/40 group-hover:scale-110 transition-transform duration-300 text-5xl">
+              🌱
+            </div>
+            <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-3">Environment</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              Sow a seed for a better future and work with people in a community to nurture and nourish the plants to create a society that is sustainable for all to live in.
+            </p>
+          </div>
+
+          {/* Education */}
+          <div className="flex flex-col items-center text-center p-8 rounded-3xl bg-gray-50 dark:bg-[#10150F] border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 group">
+            <div className="w-20 h-20 mb-6 flex items-center justify-center rounded-2xl bg-blue-50 dark:bg-blue-950/40 group-hover:scale-110 transition-transform duration-300 text-5xl">
+              🎓
+            </div>
+            <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-3">Education</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              Take the knowledge sharing for kids beyond pages of books and walls of a school and provide a holistic understanding of society.
+            </p>
+          </div>
+
+          {/* Humanity */}
+          <div className="flex flex-col items-center text-center p-8 rounded-3xl bg-gray-50 dark:bg-[#10150F] border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 group">
+            <div className="w-20 h-20 mb-6 flex items-center justify-center rounded-2xl bg-orange-50 dark:bg-orange-950/40 group-hover:scale-110 transition-transform duration-300 text-5xl">
+              🤝
+            </div>
+            <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-3">Humanity</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              Bring together people as equals and support every person in a time of need to bring out the best in a person so all may live in a better society.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* OUR SPONSORS – animated marquee */}
       <SponsorMarquee />
 

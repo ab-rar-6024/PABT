@@ -68,10 +68,51 @@ export default function Navbar() {
   ];
 
   const JOIN_US_ITEMS = [
-    { name: "Volunteer", href: "/volunteer" },
-    { name: "Intern", href: "/intern" },
-    { name: "Career", href: "/career" },
-    { name: "Partner", href: "/partner" },
+    {
+      name: "Volunteer",
+      href: "/volunteer",
+      description: "Grassroots environmental action & tree drives",
+      icon: (
+        <svg className="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+      ),
+      badge: "Grassroots",
+    },
+    {
+      name: "Intern",
+      href: "/intern",
+      description: "Hands-on sustainability & eco-research programs",
+      icon: (
+        <svg className="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+        </svg>
+      ),
+      badge: "Programs",
+    },
+    {
+      name: "Career",
+      href: "/career",
+      description: "Full-time roles driving India's green movement",
+      icon: (
+        <svg className="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      ),
+      badge: "Hiring",
+    },
+    {
+      name: "Partner",
+      href: "/partner",
+      description: "Corporate CSR, ESG auditing & strategic alliances",
+      icon: (
+        <svg className="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+      ),
+      badge: "CSR & ESG",
+    },
   ];
 
   const openMissions = useCallback(() => {
@@ -305,29 +346,58 @@ export default function Navbar() {
                       )}
                     </Link>
 
-                    {/* Join Us Dropdown matching user's image styling */}
+                    {/* Join Us Rich Dropdown Menu */}
                     {joinUsOpen && (
                       <div
-                        className="absolute top-full left-0 mt-2 w-48 py-3 rounded-2xl bg-[#F7F6F0] dark:bg-[#131814] border border-gray-200/80 dark:border-gray-800 shadow-xl z-50 transition-all duration-200 space-y-1"
+                        className="joinus-dropdown-menu"
                         onMouseEnter={openJoinUs}
                         onMouseLeave={closeJoinUs}
                       >
-                        {JOIN_US_ITEMS.map((item) => {
-                          const isSubActive = pathname === item.href || pathname === `/join-us${item.href}`;
-                          return (
-                            <Link
-                              key={item.name}
-                              href={item.href}
-                              className={`block px-5 py-2.5 text-sm font-bold tracking-wide transition-colors ${
-                                isSubActive
-                                  ? "text-green-600 dark:text-green-400 bg-black/5 dark:bg-white/5"
-                                  : "text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"
-                              }`}
-                            >
-                              {item.name}
-                            </Link>
-                          );
-                        })}
+                        <div className="px-4 py-2.5 border-b border-gray-100 dark:border-gray-800/80 flex items-center justify-between">
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                            Ways to get involved
+                          </span>
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                            Join Movement
+                          </span>
+                        </div>
+                        <div className="p-1.5 space-y-1">
+                          {JOIN_US_ITEMS.map((item) => {
+                            const isSubActive = pathname === item.href || pathname === `/join-us${item.href}`;
+                            return (
+                              <Link
+                                key={item.name}
+                                href={item.href}
+                                className={`group flex items-start gap-3.5 p-3 rounded-xl transition-all duration-200 ${
+                                  isSubActive
+                                    ? "bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/30"
+                                    : "hover:bg-gray-100/80 dark:hover:bg-white/[0.05] border border-transparent"
+                                }`}
+                              >
+                                <div className="p-2.5 rounded-xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm group-hover:scale-105 group-hover:border-emerald-500/30 transition-all duration-200 flex-shrink-0">
+                                  {item.icon}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center justify-between">
+                                    <span className={`text-sm font-bold tracking-tight transition-colors ${
+                                      isSubActive
+                                        ? "text-emerald-600 dark:text-emerald-400"
+                                        : "text-gray-900 dark:text-white group-hover:text-emerald-500"
+                                    }`}>
+                                      {item.name}
+                                    </span>
+                                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 group-hover:bg-emerald-500/10 group-hover:text-emerald-500 transition-colors">
+                                      {item.badge}
+                                    </span>
+                                  </div>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-1 leading-snug font-medium">
+                                    {item.description}
+                                  </p>
+                                </div>
+                              </Link>
+                            );
+                          })}
+                        </div>
                       </div>
                     )}
                   </div>
@@ -675,6 +745,33 @@ export default function Navbar() {
         .mega-item-active .mega-item-arrow {
           opacity: 1;
           transform: translateX(0);
+        }
+
+        /* ── Join Us Dropdown Menu ── */
+        .joinus-dropdown-menu {
+          position: absolute;
+          top: calc(100% + 12px);
+          left: -24px;
+          width: 320px;
+          background: rgba(255, 255, 255, 0.98);
+          border-radius: 20px;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.04);
+          backdrop-filter: blur(16px);
+          animation: joinUsFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+          z-index: 100;
+          overflow: hidden;
+        }
+
+        :root.dark .joinus-dropdown-menu {
+          background: rgba(15, 20, 16, 0.96);
+          border-color: rgba(34, 197, 94, 0.2);
+          box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+        }
+
+        @keyframes joinUsFadeIn {
+          from { opacity: 0; transform: translateY(-8px) scale(0.96); }
+          to   { opacity: 1; transform: translateY(0)    scale(1); }
         }
       `}</style>
     </nav>
