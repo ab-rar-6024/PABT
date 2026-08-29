@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 interface InsightCardData {
@@ -14,6 +14,8 @@ interface InsightCardData {
   readTime: string;
   href: string;
 }
+
+const categories = ["All", "Nature", "Circularity", "Clean Energy", "ESG & CSR", "Community"];
 
 const insights: InsightCardData[] = [
   {
@@ -79,164 +81,121 @@ const insights: InsightCardData[] = [
 ];
 
 export default function InsightsCarousel() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 25,
-    mass: 0.2,
-    restDelta: 0.001,
-  });
-
-  // Translates cards from right to left (150px to -650px) as user scrolls down the page naturally
-  const x = useTransform(smoothProgress, [0, 1], ["120px", "-680px"]);
-
-  const scrollLeft = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -380, behavior: "smooth" });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 380, behavior: "smooth" });
-    }
-  };
+  const filteredInsights =
+    selectedCategory === "All"
+      ? insights
+      : insights.filter((item) => item.domain === selectedCategory);
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full bg-gray-50 dark:bg-[#070908] py-16 transition-colors duration-500 overflow-hidden"
-    >
-      {/* Giant Watermark Text in Background */}
-      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 select-none pointer-events-none text-center z-0 overflow-hidden">
-        <h2 className="text-[15vw] font-black uppercase tracking-tighter text-gray-200/35 dark:text-gray-900/15 leading-none whitespace-nowrap">
-          FIELD NOTES
-        </h2>
-      </div>
+    <div className="relative w-full bg-gray-50 dark:bg-[#070908] py-12 transition-colors duration-500 min-h-screen">
+      
+      {/* Background Subtle Glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-emerald-500/10 dark:bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 relative space-y-8">
-        {/* Heading & Scroll Buttons */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-200/80 dark:border-gray-800/80 pb-6">
-          <div>
-            <span className="text-green-600 dark:text-green-400 font-mono text-xs uppercase tracking-widest font-bold mb-1 block">
-              PABT Insights & Outcomes
-            </span>
-            <h1 className="text-3xl sm:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
-              Trusted Partners.
-            </h1>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm leading-relaxed max-w-sm hidden sm:block">
-              Explore our latest ecosystem insights, forestry research, and community action notes.
-            </p>
-
-            {/* Left/Right Arrow Navigation Buttons */}
-            <div className="flex items-center gap-2 shrink-0">
-              <button
-                type="button"
-                onClick={scrollLeft}
-                aria-label="Scroll left"
-                className="w-10 h-10 rounded-xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:border-green-500/40 shadow-sm transition-all cursor-pointer"
-              >
-                ←
-              </button>
-              <button
-                type="button"
-                onClick={scrollRight}
-                aria-label="Scroll right"
-                className="w-10 h-10 rounded-xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:border-green-500/40 shadow-sm transition-all cursor-pointer"
-              >
-                →
-              </button>
-            </div>
-          </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 relative space-y-10">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <span className="text-emerald-600 dark:text-emerald-400 font-mono text-xs uppercase tracking-widest font-bold block">
+            PABT Insights & Research
+          </span>
+          <h1 className="text-3xl sm:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
+            Trusted Partners.
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+            Explore our field notes, verified ecosystem audits, and climate action progress across India.
+          </p>
         </div>
 
-        {/* Scroll-Driven Translating Cards Container */}
-        <div
-          ref={scrollRef}
-          className="overflow-x-auto scrollbar-none py-4 scroll-smooth"
-          style={{ scrollbarWidth: "none" }}
-        >
-          <motion.div
-            style={{ x }}
-            className="flex gap-8 w-max px-4 select-none"
-          >
-            {insights.map((card, index) => {
-              const isHovered = hoveredIndex === index;
-              const isOtherHovered = hoveredIndex !== null && hoveredIndex !== index;
+        {/* Filter Category Tabs */}
+        <div className="flex items-center justify-center gap-2 flex-wrap border-b border-gray-200/80 dark:border-gray-800/80 pb-4">
+          {categories.map((category) => {
+            const isActive = selectedCategory === category;
+            return (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setSelectedCategory(category)}
+                className={`relative px-4 py-2 rounded-full text-xs font-mono font-bold transition-all duration-300 cursor-pointer ${
+                  isActive
+                    ? "text-white dark:text-gray-900"
+                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white bg-white/60 dark:bg-zinc-900/60 border border-gray-200/60 dark:border-zinc-800/60"
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="activeCategoryPill"
+                    className="absolute inset-0 bg-emerald-600 dark:bg-emerald-400 rounded-full z-0"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{category}</span>
+              </button>
+            );
+          })}
+        </div>
 
-              return (
-                <motion.div
-                  key={index}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  animate={{
-                    scale: isHovered ? 1.03 : isOtherHovered ? 0.97 : 1,
-                    filter: isOtherHovered ? "blur(3px) brightness(0.6)" : "blur(0px) brightness(1)",
-                    opacity: isOtherHovered ? 0.5 : 1,
-                  }}
-                  transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
-                  className={`w-[320px] sm:w-[360px] shrink-0 rounded-3xl p-7 flex flex-col justify-between cursor-pointer border transition-all duration-300 ${
-                    isHovered
-                      ? "bg-white dark:bg-zinc-900 border-green-500/40 shadow-2xl"
-                      : "bg-white/90 dark:bg-zinc-900/85 border-gray-200/60 dark:border-zinc-800/60 shadow-lg"
-                  }`}
-                >
-                  {/* User Header */}
-                  <div className="flex items-center gap-3.5">
-                    <img
-                      src={card.image}
-                      alt={card.author}
-                      className="w-11 h-11 rounded-full object-cover border-2 border-green-500/20"
-                    />
-                    <div>
-                      <h4 className="font-extrabold text-gray-900 dark:text-white text-sm leading-none">
-                        {card.author}
-                      </h4>
-                      <p className="text-[10px] text-green-600 dark:text-green-400 font-mono uppercase tracking-widest mt-1">
-                        {card.role} • {card.domain}
-                      </p>
-                    </div>
-                  </div>
+        {/* Dynamic Animated Grid */}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-2">
+          <AnimatePresence mode="popLayout">
+            {filteredInsights.map((card, index) => (
+              <motion.div
+                key={card.title + index}
+                layout
+                initial={{ opacity: 0, y: 20, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.96 }}
+                transition={{ duration: 0.35, delay: index * 0.05 }}
+                whileHover={{ y: -6 }}
+                className="group relative rounded-3xl bg-white dark:bg-zinc-900/90 border border-gray-200/80 dark:border-zinc-800/80 p-7 flex flex-col justify-between shadow-lg hover:shadow-2xl hover:border-emerald-500/40 transition-all duration-300"
+              >
+                <Link href={card.href} className="absolute inset-0 z-20 rounded-3xl" aria-label={card.title} />
 
-                  {/* Content */}
-                  <div className="flex-grow flex flex-col justify-center my-4">
-                    <h3 className="font-black text-gray-900 dark:text-white text-base tracking-tight leading-snug mb-2">
-                      {card.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-4">
-                      &ldquo;{card.description}&rdquo;
-                    </p>
-                  </div>
-
-                  {/* Footer Actions */}
-                  <div className="flex justify-between items-center border-t border-gray-100 dark:border-zinc-800/80 pt-4">
-                    <span className="text-[10px] font-mono font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                <div>
+                  {/* Top Meta: Domain Badge & Read Time */}
+                  <div className="flex justify-between items-center mb-5">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20">
+                      {card.domain}
+                    </span>
+                    <span className="text-[11px] font-mono text-gray-400 dark:text-gray-500 font-medium">
                       {card.readTime}
                     </span>
-                    <Link
-                      href={card.href}
-                      className="text-[11px] font-mono font-bold uppercase tracking-wider text-green-600 dark:text-green-400 flex items-center gap-1 group"
-                    >
-                      Read Post
-                      <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                    </Link>
                   </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
+
+                  {/* Title */}
+                  <h3 className="font-extrabold text-gray-900 dark:text-white text-lg tracking-tight leading-snug mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                    {card.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-4 mb-6">
+                    &ldquo;{card.description}&rdquo;
+                  </p>
+                </div>
+
+                {/* Author Footer */}
+                <div className="flex items-center gap-3.5 border-t border-gray-100 dark:border-zinc-800/80 pt-4">
+                  <img
+                    src={card.image}
+                    alt={card.author}
+                    className="w-10 h-10 rounded-full object-cover border-2 border-emerald-500/20"
+                  />
+                  <div>
+                    <h4 className="font-extrabold text-gray-900 dark:text-white text-xs leading-none">
+                      {card.author}
+                    </h4>
+                    <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono uppercase tracking-wider mt-1">
+                      {card.role}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
       </div>
     </div>
   );
