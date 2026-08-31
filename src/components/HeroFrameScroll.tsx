@@ -162,7 +162,6 @@ export default function HeroFrameScroll() {
   // Three.js Earth mesh references for smooth settle animation on handoff
   const earthMeshRef = useRef<any>(null);
   const cloudsMeshRef = useRef<any>(null);
-  const glowMeshRef = useRef<any>(null);
 
   // Load video metadata/readiness. Real hardware video decode replaces the old approach of
   // stepping through 264 JPEGs on a canvas — no per-frame JS decode or drawImage work at all,
@@ -644,7 +643,7 @@ export default function HeroFrameScroll() {
         depthWrite: false,
         roughness: 1.0,
         metalness: 0.0,
-        opacity: 0.60,
+        opacity: 0.25,
       });
       const clouds = new THREE.Mesh(cloudsGeometry, cloudsMaterial);
       clouds.rotation.y = INITIAL_ROT_Y;
@@ -652,43 +651,6 @@ export default function HeroFrameScroll() {
       clouds.rotation.z = INITIAL_ROT_Z;
       cloudsMeshRef.current = clouds;
       scene.add(clouds);
-
-      const glowGeometry = new THREE.SphereGeometry(1.88, sphereSegments, sphereSegments);
-      const glowMaterial = new THREE.ShaderMaterial({
-        uniforms: {
-          uSunDirView: { value: new THREE.Vector3() },
-        },
-        vertexShader: `
-          varying vec3 vNormal;
-          void main() {
-            vNormal = normalize(normalMatrix * normal);
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          }
-        `,
-        fragmentShader: `
-          uniform vec3 uSunDirView;
-          varying vec3 vNormal;
-          void main() {
-            vec3 normal = normalize(vNormal);
-            float viewDot = dot(normal, vec3(0.0, 0.0, 1.0));
-            float rimStrength = 1.0 - viewDot;
-            float intensity = pow(rimStrength, 5.5) * 3.2;
-            float sunDot = dot(normal, normalize(uSunDirView));
-            float lightFactor = smoothstep(-0.1, 0.5, sunDot);
-            vec3 rimColor = vec3(0.68, 0.88, 1.0);
-            gl_FragColor = vec4(rimColor * intensity * lightFactor, intensity * lightFactor);
-          }
-        `,
-        blending: THREE.AdditiveBlending,
-        side: THREE.BackSide,
-        transparent: true,
-      });
-      const glow = new THREE.Mesh(glowGeometry, glowMaterial);
-      glow.rotation.y = INITIAL_ROT_Y;
-      glow.rotation.x = INITIAL_ROT_X;
-      glow.rotation.z = INITIAL_ROT_Z;
-      glowMeshRef.current = glow;
-      scene.add(glow);
 
       const ambientLight = new THREE.AmbientLight(0xffffff, 1.45);
       scene.add(ambientLight);
@@ -751,12 +713,9 @@ export default function HeroFrameScroll() {
         earth.rotation.x += deltaY * 0.004;
         clouds.rotation.y += deltaX * 0.004;
         clouds.rotation.x += deltaY * 0.004;
-        glow.rotation.y += deltaX * 0.004;
-        glow.rotation.x += deltaY * 0.004;
 
         earth.rotation.x = Math.max(-Math.PI / 2.5, Math.min(Math.PI / 2.5, earth.rotation.x));
         clouds.rotation.x = Math.max(-Math.PI / 2.5, Math.min(Math.PI / 2.5, clouds.rotation.x));
-        glow.rotation.x = Math.max(-Math.PI / 2.5, Math.min(Math.PI / 2.5, glow.rotation.x));
 
         velocity = {
           x: deltaX * 0.004,
@@ -794,20 +753,11 @@ export default function HeroFrameScroll() {
         // actual rotation/render work while the earth isn't visible to avoid wasting GPU time.
         if (phaseRef.current !== "earth") return;
 
-        const sunDirView = new THREE.Vector3()
-          .copy(sunLight.position)
-          .applyMatrix4(camera.matrixWorldInverse)
-          .normalize();
-
-        glowMaterial.uniforms.uSunDirView.value.copy(sunDirView);
-
         if (!isDragging) {
           earth.rotation.y += velocity.x;
           earth.rotation.x += velocity.y;
           clouds.rotation.y += velocity.x * 1.12 + 0.00015;
           clouds.rotation.x += velocity.y;
-          glow.rotation.y += velocity.x;
-          glow.rotation.x += velocity.y;
 
           velocity.x = velocity.x * friction + 0.001 * (1 - friction);
           velocity.y = velocity.y * friction;
@@ -842,8 +792,6 @@ export default function HeroFrameScroll() {
         cloudsMaterial.dispose();
         cloudsTexture.dispose();
 
-        glowGeometry.dispose();
-        glowMaterial.dispose();
         starsGeometry.dispose();
         starsMaterial.dispose();
       };

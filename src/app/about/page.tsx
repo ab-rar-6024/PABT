@@ -45,14 +45,20 @@ export default function AboutPage() {
     },
     {
       year: "Year 3",
-      title: "Clean Energy & ESG Pathways Launch",
-      description: "PABT Future brought solar micro-grids to off-grid communities, while PABT ESG began helping corporate partners audit and fund verified impact.",
+      title: "Clean Energy & Green Innovation",
+      description: "PABT Future brought solar micro-grids, EV charging hubs, and climate-tech pilots to off-grid rural communities.",
       image: "/future_hero.png",
+    },
+    {
+      year: "Year 4",
+      title: "ESG & CSR Advisory Launch",
+      description: "PABT ESG & CSR was launched to empower corporate partners with materiality audits, BRSR alignment, and transparent CSR project funding.",
+      image: "/esg_hero.png",
     },
     {
       year: "Today",
       title: "Five Pathways, One Movement",
-      description: "PABT Community now mobilizes schools and volunteers, completing an ecosystem where nature, industry, and citizens move together.",
+      description: "PABT Community mobilizes school eco-clubs, volunteers, and local stewards, completing an ecosystem where nature, industry, and citizens move together.",
       image: "/community_hero.png",
     },
   ];
