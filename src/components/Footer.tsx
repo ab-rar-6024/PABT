@@ -37,18 +37,19 @@ export default function Footer() {
   // Contact info data
   const contactInfo = [
     {
-      icon: <Mail size={16} className="text-[#3ca2fa]" />,
+      icon: <Mail size={16} className="text-[#3ca2fa] flex-shrink-0" />,
       text: "trees@pabt.in",
       href: "mailto:trees@pabt.in",
     },
     {
-      icon: <Phone size={16} className="text-[#3ca2fa]" />,
+      icon: <Phone size={16} className="text-[#3ca2fa] flex-shrink-0" />,
       text: "+91 95006 66668",
       href: "tel:+919500666668",
     },
     {
-      icon: <MapPin size={16} className="text-[#3ca2fa]" />,
-      text: "Chennai & Bengaluru, India",
+      icon: <MapPin size={16} className="text-[#3ca2fa] flex-shrink-0 mt-0.5" />,
+      text: "Head Office: No.60, 1st Floor, Joseph Centre, Officers Colony, 3rd St, Metha Nagar, Aminjikarai, Chennai - 600029",
+      href: "https://www.google.com/maps/search/?api=1&query=No.60,+1st+Floor,+Joseph+Centre,+Officers+Colony,+3rd+St,+Metha+Nagar,+Aminjikarai,+Chennai+-+600029",
     },
   ];
 
@@ -172,12 +173,17 @@ export default function Footer() {
               <h4 className="text-sm font-bold text-white uppercase tracking-wider font-mono">
                 Contact & Support
               </h4>
-              <ul className="space-y-3 text-sm">
+              <ul className="space-y-3 text-xs leading-relaxed">
                 {contactInfo.map(({ icon, text, href }) => (
-                  <li key={text} className="flex items-center gap-2.5">
+                  <li key={text} className="flex items-start gap-2.5">
                     {icon}
                     {href ? (
-                      <a href={href} className="hover:text-green-400 transition-colors">
+                      <a
+                        href={href}
+                        target={href.startsWith("http") ? "_blank" : undefined}
+                        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        className="hover:text-green-400 transition-colors"
+                      >
                         {text}
                       </a>
                     ) : (
@@ -186,6 +192,14 @@ export default function Footer() {
                   </li>
                 ))}
               </ul>
+              <div className="pt-2 border-t border-gray-800/80">
+                <span className="text-[11px] font-mono text-gray-500 uppercase tracking-wider block font-bold mb-1">
+                  Regional Offices
+                </span>
+                <p className="text-xs text-gray-400 font-medium">
+                  Bangalore &bull; Hyderabad &bull; Karur &bull; Trichy
+                </p>
+              </div>
             </div>
           </div>
 

@@ -1,13 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { Handshake, Building2, ShieldCheck, FileCheck, Users, CheckCircle2, Mail, Sparkles, Award, BarChart3, Phone } from "lucide-react";
+import { Handshake, Building2, ShieldCheck, FileCheck, Users, CheckCircle2, Mail, Sparkles, Award, BarChart3, Phone, MapPin, ArrowRight, ArrowLeft } from "lucide-react";
 
 export default function PartnerPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0B0F0E] text-gray-900 dark:text-gray-100 pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-white dark:bg-[#0B0F0E] text-gray-900 dark:text-gray-100 pt-14 sm:pt-20 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Ambient Glow */}
       <div className="absolute top-10 right-1/4 w-[500px] h-[300px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
+
+      {/* Back to Join Us Navigation Button */}
+      <div className="max-w-6xl mx-auto mb-3 sm:mb-6 flex items-center">
+        <Link
+          href="/join-us"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-zinc-800/90 hover:bg-gray-200 dark:hover:bg-zinc-700 text-gray-800 dark:text-gray-100 text-xs sm:text-sm font-bold border border-gray-200/80 dark:border-zinc-700/80 transition-all shadow-sm hover:scale-105"
+        >
+          <ArrowLeft className="w-4 h-4 text-green-600 dark:text-green-400" />
+          <span>Back to Join Us</span>
+        </Link>
+      </div>
 
       {/* Hero Banner with Generated CSR Image */}
       <div className="max-w-6xl mx-auto mb-16 rounded-3xl overflow-hidden bg-gray-900 text-white relative shadow-2xl border border-gray-800">
@@ -34,6 +45,13 @@ export default function PartnerPage() {
               >
                 <Mail className="w-4 h-4" />
                 <span>Request CSR Proposals</span>
+              </a>
+              <a
+                href="#head-office-location"
+                className="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm tracking-wide transition-all border border-white/15 flex items-center gap-2"
+              >
+                <MapPin className="w-4 h-4 text-purple-400" />
+                <span>View Office Location</span>
               </a>
             </div>
           </div>
@@ -148,6 +166,72 @@ export default function PartnerPage() {
                 <span>Mentorship & educational workshops for students</span>
               </li>
             </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Head Office & Interactive Map Location Section */}
+      <div id="head-office-location" className="max-w-6xl mx-auto mb-16 rounded-3xl bg-gray-50 dark:bg-[#10150F] border border-gray-200 dark:border-gray-800 overflow-hidden shadow-xl p-8 sm:p-12 space-y-8">
+        <div className="text-center max-w-2xl mx-auto space-y-3">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-purple-600 dark:text-purple-400">
+            HEADQUARTERS & MAP LOCATION
+          </span>
+          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">
+            Visit Our Head Office
+          </h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Our Chennai headquarters manages projects across all 5 pathways, supported by regional hubs in South India.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {/* Office Details */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 space-y-3 shadow-sm">
+              <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400 font-mono font-bold text-xs uppercase tracking-wider">
+                <MapPin className="w-4 h-4" />
+                <span>Head Office Address</span>
+              </div>
+              <p className="text-gray-900 dark:text-white font-bold text-base sm:text-lg leading-snug">
+                No.60, 1st Floor, Joseph Centre, Officers Colony, 3rd St, Metha Nagar, Aminjikarai, Chennai – 600029.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 space-y-3 shadow-sm">
+              <div className="text-purple-600 dark:text-purple-400 font-mono font-bold text-xs uppercase tracking-wider mb-1">
+                Regional Offices
+              </div>
+              <p className="text-gray-700 dark:text-gray-300 font-semibold text-sm">
+                Bangalore &bull; Hyderabad &bull; Karur &bull; Trichy
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-4 pt-2">
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=No.60,+1st+Floor,+Joseph+Centre,+Officers+Colony,+3rd+St,+Metha+Nagar,+Aminjikarai,+Chennai+-+600029"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg hover:shadow-purple-500/25 transition-all"
+              >
+                <MapPin className="w-4 h-4" />
+                <span>Open Google Maps Location</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Embedded Google Map */}
+          <div className="lg:col-span-6 h-72 sm:h-80 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-md bg-gray-900">
+            <iframe
+              title="PABT Head Office Map Location"
+              src="https://maps.google.com/maps?q=No.60%201st%20Floor%20Joseph%20Centre%20Officers%20Colony%203rd%20St%20Metha%20Nagar%20Aminjikarai%20Chennai%20600029&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
       </div>

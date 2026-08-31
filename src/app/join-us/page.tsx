@@ -59,7 +59,7 @@ export default function JoinUsPage() {
   const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0B0F0E] text-gray-900 dark:text-gray-100 pt-20 sm:pt-28 pb-16 sm:pb-24 px-3 sm:px-6 lg:px-8 overflow-x-hidden">
+    <div className="min-h-screen bg-white dark:bg-[#0B0F0E] text-gray-900 dark:text-gray-100 pt-14 sm:pt-20 pb-16 sm:pb-24 px-3 sm:px-6 lg:px-8 overflow-x-hidden">
       {/* Hero Header */}
       <div className="max-w-4xl mx-auto text-center mb-10 sm:mb-16 space-y-3 sm:space-y-4">
         <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-widest text-green-600 dark:text-green-400">

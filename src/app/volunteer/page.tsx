@@ -22,6 +22,7 @@ import {
   Share2,
   ExternalLink,
   ArrowRight,
+  ArrowLeft,
   MessageSquare
 } from "lucide-react";
 
@@ -124,10 +125,19 @@ export default function VolunteerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0B0F0E] text-gray-900 dark:text-gray-100 pt-20 sm:pt-24 pb-16 sm:pb-20 px-3 sm:px-6 lg:px-8 relative overflow-x-hidden">
+    <div className="min-h-screen bg-white dark:bg-[#0B0F0E] text-gray-900 dark:text-gray-100 pt-14 sm:pt-20 pb-16 sm:pb-20 px-3 sm:px-6 lg:px-8 relative overflow-x-hidden">
       {/* Ambient background glow */}
       <div className="absolute top-10 right-1/4 w-[300px] sm:w-[500px] h-[200px] sm:h-[300px] bg-green-500/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
-      <div className="absolute bottom-20 left-10 w-[250px] sm:w-[400px] h-[250px] sm:h-[400px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+      {/* Back to Join Us Navigation Button */}
+      <div className="max-w-6xl mx-auto mb-3 sm:mb-6 flex items-center">
+        <Link
+          href="/join-us"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-zinc-800/90 hover:bg-gray-200 dark:hover:bg-zinc-700 text-gray-800 dark:text-gray-100 text-xs sm:text-sm font-bold border border-gray-200/80 dark:border-zinc-700/80 transition-all shadow-sm hover:scale-105"
+        >
+          <ArrowLeft className="w-4 h-4 text-green-600 dark:text-green-400" />
+          <span>Back to Join Us</span>
+        </Link>
+      </div>
 
       {/* Hero Banner Header */}
       <div className="max-w-6xl mx-auto mb-8 sm:mb-12 rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-br from-gray-950 via-gray-900 to-emerald-950 text-white relative shadow-xl border border-emerald-900/40">

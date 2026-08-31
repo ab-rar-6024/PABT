@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import CustomSelect from "@/components/CustomSelect";
 
 export default function ShareStoryPage() {
   const [formData, setFormData] = useState({
@@ -136,43 +137,19 @@ export default function ShareStoryPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="pathway" className="block text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-2">
-                  Related Pathway
-                </label>
-                <select
-                  id="pathway"
-                  name="pathway"
-                  value={formData.pathway}
-                  onChange={handleChange}
-                  className="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:border-green-500 focus:ring-1 focus:ring-green-500 rounded-xl px-4 py-3 text-sm text-gray-900 dark:text-white outline-none transition-all"
-                >
-                  {pathways.map((p) => (
-                    <option key={p} value={p}>
-                      {p}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label htmlFor="role" className="block text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-2">
-                  Your Role
-                </label>
-                <select
-                  id="role"
-                  name="role"
-                  value={formData.role}
-                  onChange={handleChange}
-                  className="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:border-green-500 focus:ring-1 focus:ring-green-500 rounded-xl px-4 py-3 text-sm text-gray-900 dark:text-white outline-none transition-all"
-                >
-                  {roles.map((r) => (
-                    <option key={r} value={r}>
-                      {r}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <CustomSelect
+                label="Related Pathway"
+                options={pathways}
+                value={formData.pathway}
+                onChange={(val) => setFormData((prev) => ({ ...prev, pathway: val }))}
+              />
+              <CustomSelect
+                label="Your Role"
+                options={roles}
+                value={formData.role}
+                onChange={(val) => setFormData((prev) => ({ ...prev, role: val }))}
+              />
             </div>
 
             <div>

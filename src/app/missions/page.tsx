@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import StrokeText from "@/components/StrokeText";
 import MissionSlider from "@/components/MissionSlider";
 
@@ -64,9 +65,20 @@ export default function MissionsPage() {
   ];
 
   return (
-    <div className="relative">
+    <div className="relative pt-14 sm:pt-20">
+      {/* Back to Home Button */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2 flex items-center">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-zinc-800/90 hover:bg-gray-200 dark:hover:bg-zinc-700 text-gray-800 dark:text-gray-100 text-xs sm:text-sm font-bold border border-gray-200/80 dark:border-zinc-700/80 transition-all shadow-sm hover:scale-105"
+        >
+          <ArrowLeft className="w-4 h-4 text-green-600 dark:text-green-400" />
+          <span>Back to Home</span>
+        </Link>
+      </div>
+
       {/* Header */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-10 text-center">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-10 text-center">
         <span className="text-green-700 dark:text-green-400 font-mono text-xs uppercase tracking-widest font-bold mb-3 block animate-float">
           Our 5 Missions
         </span>

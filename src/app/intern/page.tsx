@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { GraduationCap, Heart, Clock, CheckCircle2, Mail, Sparkles, BookOpen, Layers, Users, Phone } from "lucide-react";
+import { GraduationCap, Heart, Clock, CheckCircle2, Mail, Sparkles, BookOpen, Layers, Users, Phone, ArrowLeft } from "lucide-react";
 
 const tracks = [
   {
@@ -41,9 +41,20 @@ export default function InternPage() {
   const [selectedTrack, setSelectedTrack] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0B0F0E] text-gray-900 dark:text-gray-100 pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-white dark:bg-[#0B0F0E] text-gray-900 dark:text-gray-100 pt-14 sm:pt-20 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Ambient Glow */}
       <div className="absolute top-10 left-1/4 w-[500px] h-[300px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
+
+      {/* Back to Join Us Navigation Button */}
+      <div className="max-w-6xl mx-auto mb-3 sm:mb-6 flex items-center">
+        <Link
+          href="/join-us"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-zinc-800/90 hover:bg-gray-200 dark:hover:bg-zinc-700 text-gray-800 dark:text-gray-100 text-xs sm:text-sm font-bold border border-gray-200/80 dark:border-zinc-700/80 transition-all shadow-sm hover:scale-105"
+        >
+          <ArrowLeft className="w-4 h-4 text-green-600 dark:text-green-400" />
+          <span>Back to Join Us</span>
+        </Link>
+      </div>
 
       {/* Hero Banner with Generated Interns Image */}
       <div className="max-w-6xl mx-auto mb-16 rounded-3xl overflow-hidden bg-gray-900 text-white relative shadow-2xl border border-gray-800">
