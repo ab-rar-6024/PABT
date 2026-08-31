@@ -20,7 +20,7 @@ export default function PartnerPage() {
             </div>
             
             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
-              Amplify Your CSR Impact with Thuvakkam
+              Amplify Your CSR Impact with PABT Foundation
             </h1>
 
             <p className="text-gray-300 text-base sm:text-lg leading-relaxed font-medium">
@@ -29,7 +29,7 @@ export default function PartnerPage() {
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <a
-                href="mailto:info@thuvakkam.org"
+                href="mailto:trees@pabt.in"
                 className="px-6 py-3.5 rounded-xl bg-purple-500 hover:bg-purple-400 text-black font-extrabold text-sm tracking-wide transition-all shadow-lg hover:shadow-purple-500/25 flex items-center gap-2"
               >
                 <Mail className="w-4 h-4" />
@@ -154,24 +154,24 @@ export default function PartnerPage() {
 
       {/* Corporate Partner Contact Banner */}
       <div className="max-w-4xl mx-auto p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-purple-950 via-gray-900 to-indigo-950 text-white border border-purple-800/50 shadow-2xl text-center space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-extrabold">Partner With Thuvakkam</h2>
+        <h2 className="text-2xl sm:text-3xl font-extrabold">Partner With PABT Foundation</h2>
         <p className="text-sm sm:text-base text-purple-100/90 max-w-xl mx-auto">
           Organizations wishing to align with their CSR goals can reach out to our team directly for curated proposal documents and project roadmaps:
         </p>
         <div className="flex flex-wrap items-center justify-center gap-6 pt-2">
           <a
-            href="mailto:info@thuvakkam.org"
+            href="mailto:trees@pabt.in"
             className="flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-purple-500/20 border border-purple-500/40 text-purple-300 font-semibold hover:bg-purple-500/30 transition-all font-mono"
           >
             <Mail className="w-5 h-5 text-purple-400" />
-            <span>info@thuvakkam.org</span>
+            <span>trees@pabt.in</span>
           </a>
           <a
-            href="tel:+919444888937"
+            href="tel:+919500666668"
             className="flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-purple-500/20 border border-purple-500/40 text-purple-300 font-semibold hover:bg-purple-500/30 transition-all"
           >
             <Phone className="w-5 h-5 text-purple-400" />
-            <span>+91 94448 88937</span>
+            <span>+91 95006 66668</span>
           </a>
         </div>
       </div>

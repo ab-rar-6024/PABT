@@ -43,8 +43,8 @@ export default function Footer() {
     },
     {
       icon: <Phone size={16} className="text-[#3ca2fa]" />,
-      text: "+91 99449 43333",
-      href: "tel:+919944943333",
+      text: "+91 95006 66668",
+      href: "tel:+919500666668",
     },
     {
       icon: <MapPin size={16} className="text-[#3ca2fa]" />,

@@ -16,7 +16,7 @@ export default function CareerPage() {
           <div className="lg:col-span-7 p-8 sm:p-12 space-y-6 z-10">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-mono font-bold tracking-wider border border-cyan-500/30">
               <Briefcase className="w-4 h-4 text-cyan-400" />
-              <span>CAREERS AT THUVAKKAM</span>
+              <span>CAREERS AT PABT FOUNDATION</span>
             </div>
             
             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
@@ -24,16 +24,16 @@ export default function CareerPage() {
             </h1>
 
             <p className="text-gray-300 text-base sm:text-lg leading-relaxed font-medium">
-              Thuvakkam is an NGO that approaches the task of social service professionally. Working on a large scale requires enthusiastic, dedicated individuals who collaborate to create lasting societal change.
+              PABT Foundation is an NGO that approaches the task of social service professionally. Working on a large scale requires enthusiastic, dedicated individuals who collaborate to create lasting societal change.
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <a
-                href="mailto:career@thuvakkam.org"
+                href="mailto:trees@pabt.in"
                 className="px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm tracking-wide transition-all shadow-lg hover:shadow-cyan-500/25 flex items-center gap-2"
               >
                 <Mail className="w-4 h-4" />
-                <span>Send Resume to career@thuvakkam.org</span>
+                <span>Send Resume to trees@pabt.in</span>
               </a>
             </div>
           </div>
@@ -164,8 +164,8 @@ export default function CareerPage() {
         </p>
         <div className="inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 font-mono font-bold text-lg hover:bg-cyan-500/30 transition-all">
           <Mail className="w-5 h-5 text-cyan-400" />
-          <a href="mailto:career@thuvakkam.org" className="hover:underline">
-            career@thuvakkam.org
+          <a href="mailto:trees@pabt.in" className="hover:underline">
+            trees@pabt.in
           </a>
         </div>
       </div>

@@ -52,7 +52,7 @@ export default function InternPage() {
           <div className="lg:col-span-7 p-8 sm:p-12 space-y-6 z-10">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-mono font-bold tracking-wider border border-amber-500/30">
               <GraduationCap className="w-4 h-4 text-amber-400" />
-              <span>INTERNSHIPS AT THUVAKKAM</span>
+              <span>INTERNSHIPS AT PABT FOUNDATION</span>
             </div>
             
             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
@@ -64,12 +64,12 @@ export default function InternPage() {
             </p>
 
             <p className="text-gray-300 text-base sm:text-lg leading-relaxed font-medium">
-              Interning at Thuvakkam is taking the first step towards creating a sustainable change in yourself and in society. When young minds tackle real-world problems, creative solutions benefit everyone. We offer internships throughout the year.
+              Interning at PABT Foundation is taking the first step towards creating a sustainable change in yourself and in society. When young minds tackle real-world problems, creative solutions benefit everyone. We offer internships throughout the year.
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <a
-                href="mailto:internship@thuvakkam.org"
+                href="mailto:trees@pabt.in"
                 className="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-sm tracking-wide transition-all shadow-lg hover:shadow-amber-500/25 flex items-center gap-2"
               >
                 <Mail className="w-4 h-4" />
@@ -182,13 +182,13 @@ export default function InternPage() {
           In case of any queries regarding existing and other internship opportunities and their availability, reach out to us by email with the subject format:
           <br />
           <span className="font-mono text-amber-300 font-bold text-sm mt-3 inline-block bg-black/50 py-1.5 px-4 rounded-xl border border-amber-500/30">
-            Thuvakkam Internship_[Name]_[College Name]
+            PABT Internship_[Name]_[College Name]
           </span>
         </p>
         <div className="inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-mono font-bold text-lg hover:bg-amber-500/30 transition-all">
           <Mail className="w-5 h-5 text-amber-400" />
-          <a href="mailto:internship@thuvakkam.org" className="hover:underline">
-            internship@thuvakkam.org
+          <a href="mailto:trees@pabt.in" className="hover:underline">
+            trees@pabt.in
           </a>
         </div>
       </div>

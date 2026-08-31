@@ -471,11 +471,11 @@ export default function VolunteerPage() {
             <span className="truncate">Join Main WhatsApp Community</span>
           </a>
           <a
-            href="mailto:info@thuvakkam.org"
+            href="mailto:trees@pabt.in"
             className="flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-xl sm:rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-semibold text-xs sm:text-sm hover:bg-emerald-500/30 transition-all font-mono text-center"
           >
             <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 flex-shrink-0" />
-            <span>info@thuvakkam.org</span>
+            <span>trees@pabt.in</span>
           </a>
         </div>
       </div>

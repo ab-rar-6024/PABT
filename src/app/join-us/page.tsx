@@ -43,7 +43,7 @@ const pathways = [
     image: "/csr_partnership.png",
     tagline: "Amplify Corporate Social Responsibility",
     description:
-      "Amplify your corporate CSR vision. Partner with Thuvakkam under U/S 135 Companies Act 2014 for environment, education, and employee engagement with 50% tax exemption (80G/12A).",
+      "Amplify your corporate CSR vision. Partner with PABT Foundation under U/S 135 Companies Act 2014 for environment, education, and employee engagement with 50% tax exemption (80G/12A).",
     highlights: ["50% Tax Exemption (80G & 12A)", "GuideStar India Certified NGO", "Quarterly transparent impact reports", "Employee engagement drives"],
   },
 ];
@@ -72,7 +72,7 @@ export default function JoinUsPage() {
           </span>
         </h1>
         <p className="text-sm sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed px-2">
-          The name <span className="font-bold text-gray-900 dark:text-white">“Thuvakkam”</span> translates to <span className="italic text-green-600 dark:text-green-400">“Beginning”</span>. 
+          <span className="font-bold text-gray-900 dark:text-white">PABT Foundation</span> stands for <span className="italic text-green-600 dark:text-green-400">“Planting A Billion Trees &amp; Beyond”</span>. 
           Explore the pathways below to start driving real-world environmental and societal impact.
         </p>
       </div>
