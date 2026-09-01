@@ -384,10 +384,7 @@ export default function VolunteerPage() {
           <p className="text-sm sm:text-base font-extrabold text-gray-900 dark:text-white pt-2">
             🌳 Plant A Billion Trees (PABT) Foundation
           </p>
-          <div className="text-xs text-gray-500 dark:text-gray-400 pt-1">
-            With regards,<br />
-            <span className="font-bold text-gray-800 dark:text-gray-200">Siva C</span>, Program Manager
-          </div>
+
         </div>
       </div>
 

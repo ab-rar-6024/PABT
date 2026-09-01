@@ -109,9 +109,7 @@ export default function CareerPage() {
               </span>
             </div>
           </div>
-          <span className="px-4 py-1.5 rounded-full bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 text-xs font-bold border border-cyan-500/20">
-            Open Hiring
-          </span>
+
         </div>
 
         {/* Responsibilities Grid */}
