@@ -164,18 +164,21 @@ export default function HeroFrameScroll() {
   const earthMeshRef = useRef<any>(null);
   const cloudsMeshRef = useRef<any>(null);
 
-  // Load video metadata/readiness. Real hardware video decode replaces the old approach of
-  // stepping through 264 JPEGs on a canvas — no per-frame JS decode or drawImage work at all,
-  // which is what was actually causing the stutter/skip-ahead during scroll playback.
+  // Load video metadata/readiness. iOS Safari ignores preload="auto" and never fires
+  // canplaythrough without a prior user gesture — we listen to the earlier canplay /
+  // loadeddata events instead, call video.load() explicitly to kick Safari into buffering,
+  // and add a 3-second timeout safety-net so iOS users are never stuck on the loading screen.
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
+    const markReady = () => {
+      if (video.duration) videoDurationRef.current = video.duration;
+      setIsVideoReady(true);
+    };
+
     const handleLoadedMetadata = () => {
       videoDurationRef.current = video.duration;
-    };
-    const handleCanPlayThrough = () => {
-      setIsVideoReady(true);
     };
     const handleProgress = () => {
       if (video.buffered.length && video.duration) {
@@ -185,16 +188,33 @@ export default function HeroFrameScroll() {
     };
 
     video.addEventListener("loadedmetadata", handleLoadedMetadata);
-    video.addEventListener("canplaythrough", handleCanPlayThrough);
+    // canplay fires much earlier than canplaythrough and fires on iOS Safari
+    video.addEventListener("canplay", markReady);
+    video.addEventListener("canplaythrough", markReady);
+    video.addEventListener("loadeddata", markReady);
     video.addEventListener("progress", handleProgress);
 
     // Handle the case where the browser already had this cached/ready before we attached listeners
     if (video.readyState >= 1) handleLoadedMetadata();
-    if (video.readyState >= 4) handleCanPlayThrough();
+    if (video.readyState >= 2) markReady(); // HAVE_CURRENT_DATA or better
+
+    // Explicitly kick Safari into loading — iOS ignores preload="auto" and won't
+    // start downloading until video.load() or play() is called from script.
+    video.load();
+
+    // 3-second iOS safety-net: if canplay still hasn't fired (e.g. no network, or iOS
+    // holding back for a gesture), show the Earth / let the user proceed anyway.
+    // The video will start playing correctly on the first user swipe/tap.
+    const iosTimeout = window.setTimeout(() => {
+      setIsVideoReady(true);
+    }, 3000);
 
     return () => {
+      clearTimeout(iosTimeout);
       video.removeEventListener("loadedmetadata", handleLoadedMetadata);
-      video.removeEventListener("canplaythrough", handleCanPlayThrough);
+      video.removeEventListener("canplay", markReady);
+      video.removeEventListener("canplaythrough", markReady);
+      video.removeEventListener("loadeddata", markReady);
       video.removeEventListener("progress", handleProgress);
     };
   }, []);
@@ -827,7 +847,7 @@ export default function HeroFrameScroll() {
         src="/videos/hero-video.mp4"
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
         className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
           phase === "earth" ? "opacity-0" : "opacity-100"
         }`}
