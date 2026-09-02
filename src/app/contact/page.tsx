@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Phone, MapPin, ExternalLink, Sparkles, Building2 } from "lucide-react";
+import { Mail, Phone, ExternalLink, Building2, Clock, ArrowLeft } from "lucide-react";
 import CustomSelect from "@/components/CustomSelect";
 
 export default function ContactPage() {
@@ -14,24 +14,14 @@ export default function ContactPage() {
     message: "",
   });
 
-  const [status, setStatus] = useState<"idle" | "submitting" | "pending" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "in-progress">("idle");
 
   const pathways = ["Nature", "Circularity", "Clean Energy", "Responsible Business (ESG)", "Community"];
   const interests = ["CSR Partnership", "Volunteer Opportunities", "Government Collaboration", "School Eco-Club Program", "Other Inquiry"];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
-      alert("Please fill in all required fields.");
-      return;
-    }
-    setStatus("submitting");
-    setTimeout(() => {
-      setStatus("pending");
-      setTimeout(() => {
-        setStatus("success");
-      }, 3500);
-    }, 1200);
+    setStatus("in-progress");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -62,62 +52,67 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         {/* Form Container */}
         <div className="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-2xl relative bg-white/70 dark:bg-zinc-900/70">
-          {status === "pending" ? (
-            <div className="text-center py-12 space-y-6">
-              {/* Animated clock / hourglass icon */}
-              <div className="relative w-16 h-16 mx-auto">
-                <div className="w-16 h-16 rounded-full border-4 border-amber-200 dark:border-amber-900 border-t-amber-500 dark:border-t-amber-400 animate-spin" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <svg className="w-6 h-6 text-amber-500 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+          {status === "in-progress" ? (
+            <div className="text-center py-10 sm:py-12 space-y-6">
+              {/* In Progress Icon */}
+              <div className="w-16 h-16 rounded-2xl bg-amber-500/10 dark:bg-amber-400/10 border border-amber-500/30 flex items-center justify-center mx-auto text-amber-600 dark:text-amber-400 shadow-lg shadow-amber-500/10">
+                <Clock className="w-8 h-8 animate-pulse" />
+              </div>
+
+              <div className="space-y-3 max-w-md mx-auto">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 text-xs font-mono font-bold uppercase tracking-wider border border-amber-300 dark:border-amber-700/50">
+                  <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping" />
+                  Work In Progress
+                </span>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Submission Is In Progress
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                  Online collaboration requests are currently in progress. Please do it later or try again after some time.
+                </p>
+                <div className="p-4 rounded-2xl bg-gray-50 dark:bg-zinc-800/60 border border-gray-200 dark:border-zinc-700/60 text-xs text-gray-600 dark:text-gray-300 text-left space-y-2">
+                  <p className="font-semibold text-gray-800 dark:text-gray-200">
+                    Need to connect with us immediately?
+                  </p>
+                  <p>
+                    Please reach out directly to our partnerships team via email or phone:
+                  </p>
+                  <div className="flex flex-col gap-1.5 pt-1">
+                    <a
+                      href="mailto:trees@pabt.in"
+                      className="inline-flex items-center gap-2 text-green-700 dark:text-green-400 font-bold hover:underline"
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      trees@pabt.in
+                    </a>
+                    <a
+                      href="tel:+919500666668"
+                      className="inline-flex items-center gap-2 text-green-700 dark:text-green-400 font-bold hover:underline"
+                    >
+                      <Phone className="w-3.5 h-3.5" />
+                      +91 95006 66668
+                    </a>
+                  </div>
                 </div>
               </div>
-              <div className="space-y-2">
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-mono font-bold uppercase tracking-wider border border-amber-200 dark:border-amber-700/50">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                  In Progress
-                </span>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white pt-1">We&apos;re Processing Your Request</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed max-w-sm mx-auto">
-                  Your collaboration request is being queued. This may take a moment — feel free to come back later or check your inbox shortly.
-                </p>
+
+              <div className="flex items-center justify-center gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setStatus("idle")}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-gray-800 dark:text-gray-200 font-bold text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Back to Form
+                </button>
               </div>
-              <div className="flex items-center justify-center gap-2 pt-2">
-                <span className="w-2 h-2 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: "0ms" }} />
-                <span className="w-2 h-2 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: "150ms" }} />
-                <span className="w-2 h-2 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: "300ms" }} />
-              </div>
-            </div>
-          ) : status === "success" ? (
-            <div className="text-center py-12 space-y-6">
-              <div className="w-16 h-16 bg-green-50 dark:bg-green-950 border border-green-500 rounded-full flex items-center justify-center mx-auto text-green-700 dark:text-green-400">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7"></path>
-                </svg>
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Request Submitted!</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed max-w-md mx-auto">
-                  Thank you for reaching out, <span className="text-gray-900 dark:text-white font-bold">{formData.name}</span>. A member of our partnership team will contact you at <span className="text-gray-900 dark:text-white font-bold">{formData.email}</span> within 24 hours.
-                </p>
-              </div>
-              <button
-                onClick={() => {
-                  setStatus("idle");
-                  setFormData({ name: "", email: "", org: "", pathway: "Nature", interest: "CSR Partnership", message: "" });
-                }}
-                className="px-6 py-2.5 bg-green-600 hover:bg-green-500 text-white font-bold text-sm tracking-wider rounded-xl transition-colors cursor-pointer"
-              >
-                SEND ANOTHER MESSAGE
-              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label htmlFor="name" className="block text-[11px] font-mono font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-2">
-                    Full Name <span className="text-green-500">*</span>
+                    Full Name
                   </label>
                   <input
                     type="text"
@@ -125,14 +120,13 @@ export default function ContactPage() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    required
                     placeholder="e.g. Rakesh Kumar"
                     className="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:border-green-500 focus:ring-1 focus:ring-green-500 rounded-xl px-4 py-3 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 outline-none transition-all"
                   />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-[11px] font-mono font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-2">
-                    Email Address <span className="text-green-500">*</span>
+                    Email Address
                   </label>
                   <input
                     type="email"
@@ -140,7 +134,6 @@ export default function ContactPage() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    required
                     placeholder="e.g. rakesh@company.com"
                     className="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:border-green-500 focus:ring-1 focus:ring-green-500 rounded-xl px-4 py-3 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 outline-none transition-all"
                   />
@@ -179,14 +172,13 @@ export default function ContactPage() {
 
               <div>
                 <label htmlFor="message" className="block text-[11px] font-mono font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-2">
-                  Your Message <span className="text-green-500">*</span>
+                  Your Message
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  required
                   rows={4}
                   placeholder="Details of your desired program, location, or goals..."
                   className="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:border-green-500 focus:ring-1 focus:ring-green-500 rounded-xl px-4 py-3 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 outline-none transition-all resize-none"
@@ -195,10 +187,9 @@ export default function ContactPage() {
 
               <button
                 type="submit"
-                disabled={status === "submitting"}
-                className="w-full py-4 bg-green-600 hover:bg-green-500 text-white font-bold text-xs font-mono uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-green-500/10 disabled:opacity-50 cursor-pointer"
+                className="w-full py-4 bg-green-600 hover:bg-green-500 text-white font-bold text-xs font-mono uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-green-500/10 cursor-pointer"
               >
-                {status === "submitting" ? "SUBMITTING..." : "SUBMIT COLLABORATION REQUEST"}
+                SUBMIT COLLABORATION REQUEST
               </button>
             </form>
           )}
