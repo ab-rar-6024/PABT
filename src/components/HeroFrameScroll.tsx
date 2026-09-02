@@ -148,6 +148,7 @@ export default function HeroFrameScroll() {
 
   const animFrameRef = useRef<number | null>(null);
   const lastWheelTimeRef = useRef<number>(0);
+  const lastTouchTimeRef = useRef<number>(0);
   const touchStartYRef = useRef<number>(0);
 
   // Bumped by cancelAnimation() (called at the start of every transition + on reset) so
@@ -510,6 +511,7 @@ export default function HeroFrameScroll() {
 
     const handleTouchStart = (e: TouchEvent) => {
       touchStartYRef.current = e.touches[0].clientY;
+      lastTouchTimeRef.current = 0; // reset so the next swipe is never blocked by a stale timestamp
     };
 
     const handleTouchMove = (e: TouchEvent) => {
@@ -522,6 +524,10 @@ export default function HeroFrameScroll() {
       if (sequenceCompleteRef.current && window.scrollY <= 10 && deltaY < -30) {
         e.preventDefault();
         if (isAnimatingRef.current) return;
+        const now = Date.now();
+        if (now - lastTouchTimeRef.current < 600) return;
+        lastTouchTimeRef.current = now;
+        touchStartYRef.current = e.touches[0].clientY;
         setSequenceComplete(false);
         document.documentElement.style.overflow = "hidden";
         document.body.style.overflow = "hidden";
@@ -533,11 +539,14 @@ export default function HeroFrameScroll() {
         e.preventDefault();
         if (isAnimatingRef.current) return;
 
-        if (Math.abs(deltaY) > 30) {
+        if (Math.abs(deltaY) > 40) {
+          const now = Date.now();
+          if (now - lastTouchTimeRef.current < 600) return;
+          lastTouchTimeRef.current = now;
           touchStartYRef.current = e.touches[0].clientY;
-          if (deltaY > 30) {
+          if (deltaY > 40) {
             goToNextSection();
-          } else if (deltaY < -30) {
+          } else if (deltaY < -40) {
             goToPreviousSection();
           }
         }
@@ -930,52 +939,84 @@ export default function HeroFrameScroll() {
           The video itself only animates through 3 of the 5 pathways (Nature, Future, Circular) — this
           is where ESG and Community get shown too, once the cinematic sequence has finished. */}
       {sequenceComplete && (
-        <div className="absolute inset-x-0 top-[10%] sm:top-[12%] z-10 flex justify-center pointer-events-none">
-          {/* Mobile: horizontal scroll strip so all 5 cards are reachable without overflow-clipping */}
-          <div
-            className="sm:hidden w-full overflow-x-auto pointer-events-auto px-4 pb-1"
-            style={{
-              opacity: showContent ? 1 : 0,
-              transform: showContent ? "translateY(0)" : "translateY(16px)",
-              transition: "opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-              scrollbarWidth: "none",
-            }}
-          >
-            <div className="flex gap-3 w-max">
-              {MISSIONS.map((mission) => (
+        <div
+          className="absolute inset-x-0 top-[8%] sm:top-[12%] z-10 flex justify-center px-3 sm:px-10 pointer-events-none"
+          style={{
+            opacity: showContent ? 1 : 0,
+            transform: showContent ? "translateY(0)" : "translateY(16px)",
+            transition: "opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+          }}
+        >
+          {/* Mobile: 5-column compact pill grid — all missions visible at once, no scroll */}
+          <div className="sm:hidden w-full pointer-events-auto">
+            {/* Top row: 3 cards */}
+            <div className="grid grid-cols-3 gap-2 mb-2">
+              {MISSIONS.slice(0, 3).map((mission) => (
                 <Link
                   key={mission.href}
                   href={mission.href}
-                  className="group flex flex-col p-3.5 rounded-2xl transition-all duration-300 hover:-translate-y-1"
+                  className="group flex flex-col p-2.5 rounded-xl transition-all duration-300 active:scale-95"
                   style={{
-                    width: "clamp(140px, 42vw, 180px)",
-                    background: "rgba(6, 16, 12, 0.45)",
-                    backdropFilter: "blur(10px) saturate(120%)",
-                    WebkitBackdropFilter: "blur(10px) saturate(120%)",
-                    border: "1px solid rgba(255, 255, 255, 0.12)",
-                    flexShrink: 0,
+                    background: "rgba(6, 16, 12, 0.50)",
+                    backdropFilter: "blur(12px) saturate(130%)",
+                    WebkitBackdropFilter: "blur(12px) saturate(130%)",
+                    border: `1px solid ${mission.color}30`,
+                    borderLeft: `3px solid ${mission.color}`,
                   }}
                 >
                   <span
-                    className="inline-block w-fit text-[9px] font-extrabold uppercase tracking-widest rounded-full px-2 py-0.5 mb-2"
-                    style={{
-                      color: mission.color,
-                      border: `1px solid ${mission.color}55`,
-                      background: `${mission.color}1A`,
-                    }}
+                    className="text-[8px] font-black uppercase tracking-wider mb-1 truncate"
+                    style={{ color: mission.color }}
                   >
                     {mission.tag}
                   </span>
-                  <h3 className="text-white font-bold text-xs leading-snug mb-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                  <h3 className="text-white font-bold text-[10px] leading-tight mb-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
                     {mission.title}
                   </h3>
-                  <p className="text-gray-300/90 text-[10px] leading-relaxed flex-grow">{mission.desc}</p>
+                  <p className="text-gray-400 text-[9px] leading-relaxed line-clamp-2">{mission.desc}</p>
                   <span
-                    className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide transition-transform duration-300 group-hover:translate-x-0.5"
+                    className="mt-1.5 text-[9px] font-bold uppercase tracking-wide flex items-center gap-0.5"
                     style={{ color: mission.color }}
                   >
                     Explore
-                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                    <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </Link>
+              ))}
+            </div>
+            {/* Bottom row: 2 cards, centered */}
+            <div className="grid grid-cols-2 gap-2">
+              {MISSIONS.slice(3).map((mission) => (
+                <Link
+                  key={mission.href}
+                  href={mission.href}
+                  className="group flex flex-col p-2.5 rounded-xl transition-all duration-300 active:scale-95"
+                  style={{
+                    background: "rgba(6, 16, 12, 0.50)",
+                    backdropFilter: "blur(12px) saturate(130%)",
+                    WebkitBackdropFilter: "blur(12px) saturate(130%)",
+                    border: `1px solid ${mission.color}30`,
+                    borderLeft: `3px solid ${mission.color}`,
+                  }}
+                >
+                  <span
+                    className="text-[8px] font-black uppercase tracking-wider mb-1 truncate"
+                    style={{ color: mission.color }}
+                  >
+                    {mission.tag}
+                  </span>
+                  <h3 className="text-white font-bold text-[10px] leading-tight mb-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
+                    {mission.title}
+                  </h3>
+                  <p className="text-gray-400 text-[9px] leading-relaxed line-clamp-2">{mission.desc}</p>
+                  <span
+                    className="mt-1.5 text-[9px] font-bold uppercase tracking-wide flex items-center gap-0.5"
+                    style={{ color: mission.color }}
+                  >
+                    Explore
+                    <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                   </span>
@@ -985,14 +1026,7 @@ export default function HeroFrameScroll() {
           </div>
 
           {/* sm+: original responsive grid */}
-          <div
-            className="hidden sm:grid sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full max-w-6xl px-10 pointer-events-auto"
-            style={{
-              opacity: showContent ? 1 : 0,
-              transform: showContent ? "translateY(0)" : "translateY(16px)",
-              transition: "opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}
-          >
+          <div className="hidden sm:grid sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full max-w-6xl pointer-events-auto">
             {MISSIONS.map((mission) => (
               <Link
                 key={mission.href}
