@@ -930,9 +930,63 @@ export default function HeroFrameScroll() {
           The video itself only animates through 3 of the 5 pathways (Nature, Future, Circular) — this
           is where ESG and Community get shown too, once the cinematic sequence has finished. */}
       {sequenceComplete && (
-        <div className="absolute inset-x-0 top-[10%] sm:top-[12%] z-10 flex justify-center px-4 sm:px-10 pointer-events-none">
+        <div className="absolute inset-x-0 top-[10%] sm:top-[12%] z-10 flex justify-center pointer-events-none">
+          {/* Mobile: horizontal scroll strip so all 5 cards are reachable without overflow-clipping */}
           <div
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 w-full max-w-6xl"
+            className="sm:hidden w-full overflow-x-auto pointer-events-auto px-4 pb-1"
+            style={{
+              opacity: showContent ? 1 : 0,
+              transform: showContent ? "translateY(0)" : "translateY(16px)",
+              transition: "opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+              scrollbarWidth: "none",
+            }}
+          >
+            <div className="flex gap-3 w-max">
+              {MISSIONS.map((mission) => (
+                <Link
+                  key={mission.href}
+                  href={mission.href}
+                  className="group flex flex-col p-3.5 rounded-2xl transition-all duration-300 hover:-translate-y-1"
+                  style={{
+                    width: "clamp(140px, 42vw, 180px)",
+                    background: "rgba(6, 16, 12, 0.45)",
+                    backdropFilter: "blur(10px) saturate(120%)",
+                    WebkitBackdropFilter: "blur(10px) saturate(120%)",
+                    border: "1px solid rgba(255, 255, 255, 0.12)",
+                    flexShrink: 0,
+                  }}
+                >
+                  <span
+                    className="inline-block w-fit text-[9px] font-extrabold uppercase tracking-widest rounded-full px-2 py-0.5 mb-2"
+                    style={{
+                      color: mission.color,
+                      border: `1px solid ${mission.color}55`,
+                      background: `${mission.color}1A`,
+                    }}
+                  >
+                    {mission.tag}
+                  </span>
+                  <h3 className="text-white font-bold text-xs leading-snug mb-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                    {mission.title}
+                  </h3>
+                  <p className="text-gray-300/90 text-[10px] leading-relaxed flex-grow">{mission.desc}</p>
+                  <span
+                    className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide transition-transform duration-300 group-hover:translate-x-0.5"
+                    style={{ color: mission.color }}
+                  >
+                    Explore
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* sm+: original responsive grid */}
+          <div
+            className="hidden sm:grid sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full max-w-6xl px-10 pointer-events-auto"
             style={{
               opacity: showContent ? 1 : 0,
               transform: showContent ? "translateY(0)" : "translateY(16px)",
@@ -943,7 +997,7 @@ export default function HeroFrameScroll() {
               <Link
                 key={mission.href}
                 href={mission.href}
-                className="pointer-events-auto group flex flex-col p-4 sm:p-5 rounded-2xl transition-all duration-300 hover:-translate-y-1"
+                className="group flex flex-col p-5 rounded-2xl transition-all duration-300 hover:-translate-y-1"
                 style={{
                   background: "rgba(6, 16, 12, 0.35)",
                   backdropFilter: "blur(10px) saturate(120%)",
@@ -961,7 +1015,7 @@ export default function HeroFrameScroll() {
                 >
                   {mission.tag}
                 </span>
-                <h3 className="text-white font-bold text-sm sm:text-base leading-snug mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                <h3 className="text-white font-bold text-base leading-snug mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
                   {mission.title}
                 </h3>
                 <p className="text-gray-300/90 text-xs leading-relaxed flex-grow">{mission.desc}</p>
