@@ -14,7 +14,7 @@ export default function ContactPage() {
     message: "",
   });
 
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "pending" | "success" | "error">("idle");
 
   const pathways = ["Nature", "Circularity", "Clean Energy", "Responsible Business (ESG)", "Community"];
   const interests = ["CSR Partnership", "Volunteer Opportunities", "Government Collaboration", "School Eco-Club Program", "Other Inquiry"];
@@ -27,7 +27,10 @@ export default function ContactPage() {
     }
     setStatus("submitting");
     setTimeout(() => {
-      setStatus("success");
+      setStatus("pending");
+      setTimeout(() => {
+        setStatus("success");
+      }, 3500);
     }, 1200);
   };
 
@@ -59,7 +62,34 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         {/* Form Container */}
         <div className="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-2xl relative bg-white/70 dark:bg-zinc-900/70">
-          {status === "success" ? (
+          {status === "pending" ? (
+            <div className="text-center py-12 space-y-6">
+              {/* Animated clock / hourglass icon */}
+              <div className="relative w-16 h-16 mx-auto">
+                <div className="w-16 h-16 rounded-full border-4 border-amber-200 dark:border-amber-900 border-t-amber-500 dark:border-t-amber-400 animate-spin" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-amber-500 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-mono font-bold uppercase tracking-wider border border-amber-200 dark:border-amber-700/50">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                  In Progress
+                </span>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white pt-1">We&apos;re Processing Your Request</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed max-w-sm mx-auto">
+                  Your collaboration request is being queued. This may take a moment — feel free to come back later or check your inbox shortly.
+                </p>
+              </div>
+              <div className="flex items-center justify-center gap-2 pt-2">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: "0ms" }} />
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: "150ms" }} />
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+              </div>
+            </div>
+          ) : status === "success" ? (
             <div className="text-center py-12 space-y-6">
               <div className="w-16 h-16 bg-green-50 dark:bg-green-950 border border-green-500 rounded-full flex items-center justify-center mx-auto text-green-700 dark:text-green-400">
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
