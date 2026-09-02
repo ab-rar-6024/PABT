@@ -11,23 +11,61 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      aria-label="Toggle light and dark mode"
-      className="relative w-14 h-8 rounded-full border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 transition-colors duration-300 flex items-center px-1 cursor-pointer flex-shrink-0"
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      className="relative w-9 h-9 rounded-full flex items-center justify-center cursor-pointer flex-shrink-0 transition-all duration-300 active:scale-90 group"
+      style={{
+        background: isDark
+          ? "radial-gradient(circle at 40% 40%, #1a2e1a, #0f1a0f)"
+          : "radial-gradient(circle at 40% 40%, #fffbeb, #fef3c7)",
+        border: isDark ? "1px solid rgba(74,222,128,0.25)" : "1px solid rgba(251,191,36,0.4)",
+        boxShadow: isDark
+          ? "0 0 0 0 rgba(74,222,128,0), inset 0 1px 0 rgba(255,255,255,0.05)"
+          : "0 0 0 0 rgba(251,191,36,0), inset 0 1px 0 rgba(255,255,255,0.6)",
+      }}
     >
+      {/* Glow ring that pulses on hover */}
       <span
-        className={`absolute top-1 left-1 w-6 h-6 rounded-full bg-white dark:bg-gray-950 shadow-md flex items-center justify-center transition-transform duration-300 ease-out ${
-          isDark ? "translate-x-6" : "translate-x-0"
-        }`}
-      >
-        {isDark ? (
-          <svg className="w-3.5 h-3.5 text-green-700 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-          </svg>
-        ) : (
-          <svg className="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1zm6 3a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1z" />
-          </svg>
-        )}
+        className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        style={{
+          boxShadow: isDark
+            ? "0 0 16px 4px rgba(74,222,128,0.35)"
+            : "0 0 16px 4px rgba(251,191,36,0.45)",
+        }}
+      />
+
+      {/* Icon with crossfade swap */}
+      <span className="relative w-5 h-5 flex items-center justify-center">
+        {/* Sun — visible in light mode */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="absolute inset-0 w-5 h-5 text-amber-500 transition-all duration-300"
+          style={{
+            opacity: isDark ? 0 : 1,
+            transform: isDark ? "rotate(90deg) scale(0.5)" : "rotate(0deg) scale(1)",
+          }}
+        >
+          <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+        </svg>
+
+        {/* Moon — visible in dark mode */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="absolute inset-0 w-5 h-5 text-green-400 transition-all duration-300"
+          style={{
+            opacity: isDark ? 1 : 0,
+            transform: isDark ? "rotate(0deg) scale(1)" : "rotate(-90deg) scale(0.5)",
+          }}
+        >
+          <path
+            fillRule="evenodd"
+            d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+            clipRule="evenodd"
+          />
+        </svg>
       </span>
     </button>
   );
