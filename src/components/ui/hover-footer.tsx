@@ -16,13 +16,20 @@ export const TextHoverEffect = ({
   const svgRef = useRef<SVGSVGElement>(null);
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
+  // Default to center — safe values that are never NaN
   const [maskPosition, setMaskPosition] = useState({ cx: "50%", cy: "50%" });
 
   useEffect(() => {
-    if (svgRef.current && cursor.x !== null && cursor.y !== null) {
-      const svgRect = svgRef.current.getBoundingClientRect();
-      const cxPercentage = ((cursor.x - svgRect.left) / svgRect.width) * 100;
-      const cyPercentage = ((cursor.y - svgRect.top) / svgRect.height) * 100;
+    if (!svgRef.current) return;
+    const svgRect = svgRef.current.getBoundingClientRect();
+    // Guard against zero-size rect (e.g. first paint before layout)
+    if (svgRect.width === 0 || svgRect.height === 0) return;
+
+    const cxPercentage = ((cursor.x - svgRect.left) / svgRect.width) * 100;
+    const cyPercentage = ((cursor.y - svgRect.top) / svgRect.height) * 100;
+
+    // Only update if both values are finite — prevents NaN% from reaching the SVG attribute
+    if (Number.isFinite(cxPercentage) && Number.isFinite(cyPercentage)) {
       setMaskPosition({
         cx: `${cxPercentage}%`,
         cy: `${cyPercentage}%`,
@@ -43,7 +50,8 @@ export const TextHoverEffect = ({
       className={cn("select-none uppercase cursor-pointer", className)}
     >
       <defs>
-        <linearGradient
+        {/* Note: this is a radialGradient (cx/cy/r are radialGradient attrs, not linearGradient) */}
+        <radialGradient
           id="textGradient"
           gradientUnits="userSpaceOnUse"
           cx="50%"
@@ -59,7 +67,7 @@ export const TextHoverEffect = ({
               <stop offset="100%" stopColor="#8b5cf6" />
             </>
           )}
-        </linearGradient>
+        </radialGradient>
 
         <motion.radialGradient
           id="revealMask"
