@@ -386,12 +386,12 @@ export default function Home() {
             <button
               onClick={() => goToDomain((activeDomainIndex - 1 + 5) % 5)}
               aria-label="Previous pathway"
-              className="hidden sm:flex absolute left-1/2 top-[51.25%] z-[150] w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#F5F6F1] text-gray-900 shadow-xl items-center justify-center hover:bg-white active:scale-95 transition-colors duration-300 cursor-pointer"
+              className="flex absolute left-1/2 top-[51.25%] z-[150] w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-[#F5F6F1] text-gray-900 shadow-xl items-center justify-center hover:bg-white active:scale-95 transition-colors duration-300 cursor-pointer"
               style={{
                 transform: "translate(calc(-50% - 1.35 * var(--spacing-x)), calc(-50% + 1.82 * var(--spacing-y)))",
               }}
             >
-              <svg className="w-4 h-4 md:w-5 md:h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 5L5 19M5 19h10M5 19V9"></path>
               </svg>
             </button>
@@ -399,12 +399,12 @@ export default function Home() {
             <button
               onClick={() => goToDomain((activeDomainIndex + 1) % 5)}
               aria-label="Next pathway"
-              className="hidden sm:flex absolute left-1/2 top-[51.25%] z-[150] w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#F5F6F1] text-gray-900 shadow-xl items-center justify-center hover:bg-white active:scale-95 transition-colors duration-300 cursor-pointer"
+              className="flex absolute left-1/2 top-[51.25%] z-[150] w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-[#F5F6F1] text-gray-900 shadow-xl items-center justify-center hover:bg-white active:scale-95 transition-colors duration-300 cursor-pointer"
               style={{
                 transform: "translate(calc(-50% + 1.35 * var(--spacing-x)), calc(-50% + 1.82 * var(--spacing-y)))",
               }}
             >
-              <svg className="w-4 h-4 md:w-5 md:h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 5l14 14m0 0H9m10 0V9"></path>
               </svg>
             </button>
