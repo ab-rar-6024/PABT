@@ -117,6 +117,16 @@ export default function ProjectsPage() {
       location: "Tamil Nadu & Karnataka",
       stat: "120+ Micro-Enterprises",
     },
+    {
+      domain: "Community",
+      accent: "text-orange-700 dark:text-orange-400",
+      title: "Swachhata Pakhwada 2026",
+      description: "Cleanliness drive and plantation support with Southern Railway, Tiruchchirappalli Division, recognised with a Certificate of Appreciation.",
+      location: "Tiruchchirappalli, Tamil Nadu",
+      stat: "Certificate of Appreciation",
+      href: "/upcoming-events",
+      cta: "View Event & Certificate",
+    },
   ];
 
   // Foundation credibility highlights — distinct from the flagship project
@@ -179,7 +189,7 @@ export default function ProjectsPage() {
           Flagship Projects, Ground Up
         </h1>
         <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
-          Ten active projects across five pathways — each one designed with the local community it serves, and tracked against a public set of targets.
+          Eleven active projects across five pathways — each one designed with the local community it serves, and tracked against a public set of targets.
         </p>
       </section>
 

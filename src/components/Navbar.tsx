@@ -63,6 +63,7 @@ export default function Navbar() {
     { name: "About PABT", href: "/about" },
     { name: "Our 5 Missions", href: "/missions", hasMega: true },
     { name: "Projects", href: "/projects" },
+    { name: "Events", href: "/upcoming-events" },
     { name: "Insights", href: "/insights" },
     { name: "Join Us", href: "/join-us", hasJoinUsDropdown: true },
   ];

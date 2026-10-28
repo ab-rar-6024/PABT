@@ -11,6 +11,8 @@ type Project = {
   description: string;
   location: string;
   stat: string;
+  href?: string;
+  cta?: string;
 };
 
 const DOMAIN_ICON: Record<string, typeof Leaf> = {
@@ -61,7 +63,8 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
     <div ref={sectionRef}>
       <BentoGrid className="grid-cols-1 md:grid-cols-2">
         {projects.map((project, i) => {
-          const link = DOMAIN_LINK[project.domain] ?? { href: "/projects", cta: "Learn More" };
+          const domainLink = DOMAIN_LINK[project.domain] ?? { href: "/projects", cta: "Learn More" };
+          const link = { href: project.href ?? domainLink.href, cta: project.cta ?? domainLink.cta };
           return (
             <div
               key={project.title}
