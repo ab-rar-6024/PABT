@@ -35,7 +35,7 @@ export default function ContactPage() {
     "https://www.google.com/maps/search/?api=1&query=No.60,+1st+Floor,+Joseph+Centre,+Officers+Colony,+3rd+St,+Metha+Nagar,+Aminjikarai,+Chennai+-+600029";
 
   return (
-    <div className="relative pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-12">
+    <div className="relative pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-4">
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
         <span className="text-green-700 dark:text-green-400 font-mono text-xs uppercase tracking-widest font-bold mb-3 block animate-float">

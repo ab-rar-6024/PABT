@@ -60,7 +60,7 @@ const TEXT_VARIANTS: Record<PathwayTheme, { container: Variants; item: Variants 
 };
 
 // The top padding clears the fixed 80px navbar; there is deliberately nothing else above the card.
-const SECTION = "relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-2 overflow-x-clip";
+const SECTION = "relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-2 overflow-x-clip";
 const CARD = "relative overflow-hidden rounded-[2rem] shadow-xl";
 const TEXT_CELL = "relative z-10 flex flex-col justify-center p-7 sm:p-10 lg:p-12";
 

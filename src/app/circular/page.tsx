@@ -65,7 +65,7 @@ export default function CircularPage() {
   ];
 
   return (
-    <div className="relative pb-24">
+    <div className="relative pb-6">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-[500px] bg-amber-50/10 dark:bg-amber-950/10 -z-10" />
 

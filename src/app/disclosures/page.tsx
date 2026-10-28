@@ -16,7 +16,7 @@ export default function DisclosuresPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0B0F0E] text-gray-900 dark:text-gray-100 pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+    <div className="bg-white dark:bg-[#0B0F0E] text-gray-900 dark:text-gray-100 pt-8 pb-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto space-y-10">
         {/* Back Link */}
         <Link

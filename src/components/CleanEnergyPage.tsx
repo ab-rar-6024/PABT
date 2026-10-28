@@ -112,7 +112,7 @@ function Hero({ label, title, description, intro }: Pick<Props, "label" | "title
     show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: EASE } },
   };
   return (
-    <section className={`${W} pt-24 pb-2 sm:pt-28`}>
+    <section className={`${W} pt-4 pb-2 sm:pt-6`}>
       <div className="relative min-h-[560px] overflow-hidden rounded-[2rem] border border-amber-200/70 bg-gradient-to-b from-amber-100 via-orange-50 to-sky-200 shadow-xl shadow-amber-900/10 dark:border-white/10 dark:from-indigo-950 dark:via-slate-900 dark:to-cyan-950">
         {/* sun and its rays */}
         <motion.div
@@ -281,7 +281,7 @@ function Programs({ areas, blurb }: { areas: EnergyArea[]; blurb: string }) {
                 ref={(el) => {
                   refs.current[i] = el;
                 }}
-                className="flex flex-col justify-center rounded-3xl border border-cyan-100 bg-white p-7 shadow-sm dark:border-white/10 dark:bg-zinc-900 lg:min-h-[48vh] lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:py-10 lg:shadow-none dark:lg:bg-transparent"
+                className="flex flex-col justify-center rounded-3xl border border-cyan-100 bg-white p-7 shadow-sm dark:border-white/10 dark:bg-zinc-900 lg:min-h-[34vh] lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:py-8 lg:shadow-none dark:lg:bg-transparent"
               >
                 <div className="mb-4 flex items-center gap-3 lg:hidden">
                   <span className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br text-white ${AREA_GRADIENTS[i % AREA_GRADIENTS.length]}`}>
@@ -423,7 +423,7 @@ function Projects({ heading, projects }: { heading: string; projects: EnergyProj
 
 export default function CleanEnergyPage(props: Props) {
   return (
-    <div className="relative pb-24">
+    <div className="relative pb-6">
       <style>{`
         .ce-spin { animation: ce-spin 9s linear infinite; }
         .ce-flow { animation: ce-flow 1.4s linear infinite; }

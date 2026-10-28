@@ -279,7 +279,7 @@ export default function Home() {
       {/* Subsequent Website Content Layer — slides upward over sticky final hero frame */}
       <div className="relative z-10 bg-[var(--background)] shadow-[0_-25px_60px_rgba(0,0,0,0.9)]">
         {/* Metric Cards Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-100 dark:border-gray-900">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-100 dark:border-gray-900">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           <MetricCard
             value="1.2M+"
@@ -309,13 +309,13 @@ export default function Home() {
       </section>
 
       {/* About PABT Section */}
-      <section id="about-section" className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100 dark:border-gray-900">
+      <section id="about-section" className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-100 dark:border-gray-900">
         <SectionWatermark text="ABOUT" />
         <AboutTeaser />
       </section>
 
       {/* Pathways Section */}
-      <section id="pathways" className="relative w-full flex flex-col items-center justify-center overflow-hidden px-4 py-20 md:py-28 select-none border-t border-gray-100 dark:border-gray-900 bg-gradient-to-b from-transparent via-[var(--background)] to-transparent">
+      <section id="pathways" className="relative w-full flex flex-col items-center justify-center overflow-hidden px-4 py-12 md:py-16 select-none border-t border-gray-100 dark:border-gray-900 bg-gradient-to-b from-transparent via-[var(--background)] to-transparent">
         {/* Pathways Grid Heading */}
         <div className="text-center mb-12 max-w-7xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
@@ -437,7 +437,7 @@ export default function Home() {
       </section>
 
       {/* Verified Impact Numbers */}
-      <section ref={statsSectionRef} className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100 dark:border-gray-900">
+      <section ref={statsSectionRef} className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-100 dark:border-gray-900">
         <SectionWatermark text="IMPACT" />
 
         <div className="relative rounded-3xl overflow-hidden shadow-2xl">
@@ -491,7 +491,7 @@ export default function Home() {
       </section>
 
       {/* Flagship Projects */}
-      <section ref={projectsSectionRef} className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100 dark:border-gray-900">
+      <section ref={projectsSectionRef} className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-100 dark:border-gray-900">
         <SectionWatermark text="PROJECTS" />
         <div className="text-center mb-14 max-w-2xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
@@ -545,7 +545,7 @@ export default function Home() {
       </section>
 
       {/* Solutions for Partners Section */}
-      <section className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100 dark:border-gray-900">
+      <section className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-100 dark:border-gray-900">
         <SectionWatermark text="PARTNERS" />
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
@@ -631,7 +631,7 @@ export default function Home() {
       </section>
 
       {/* Voices of the Movement */}
-      <section className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100 dark:border-gray-900">
+      <section className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-100 dark:border-gray-900">
         <SectionWatermark text="VOICES" />
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
@@ -676,7 +676,7 @@ export default function Home() {
       </section>
 
       {/* Global Call to Action */}
-      <section className="bg-gradient-to-r from-green-950/80 via-gray-50 dark:via-gray-950 to-green-950/80 border-t border-b border-gray-100 dark:border-gray-900 py-20 px-4 sm:px-6 lg:px-8 text-center">
+      <section className="bg-gradient-to-r from-green-950/80 via-gray-50 dark:via-gray-950 to-green-950/80 border-t border-b border-gray-100 dark:border-gray-900 py-14 px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 tracking-tight leading-tight">
             Ready to Co-Invest in India&apos;s <br />

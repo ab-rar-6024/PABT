@@ -120,7 +120,7 @@ export default function AdminPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50/50 dark:bg-[#0B0F0B] text-gray-900 dark:text-gray-100 px-4 sm:px-8 py-8">
+    <div className="bg-gray-50/50 dark:bg-[#0B0F0B] text-gray-900 dark:text-gray-100 px-4 sm:px-8 py-8">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Header Bar */}
         <div className="flex flex-wrap items-center justify-between gap-4 p-6 rounded-3xl bg-white dark:bg-[#10150F] border border-gray-200 dark:border-gray-800 shadow-sm">

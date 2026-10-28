@@ -92,7 +92,7 @@ export default function EsgPage() {
   ];
 
   return (
-    <div className="relative pb-24">
+    <div className="relative pb-6">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-[500px] bg-indigo-50/60 dark:bg-indigo-950/20 -z-10" />
 

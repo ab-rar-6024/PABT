@@ -64,11 +64,11 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="relative pb-24 pt-16 overflow-x-hidden">
+    <div className="relative pb-6 pt-4 overflow-x-hidden">
       <div className="absolute top-10 left-1/3 w-[500px] h-[500px] bg-green-500/10 rounded-full blur-[120px] animate-pulse -z-10" />
 
       {/* Hero */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-12 text-center space-y-4">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12 text-center space-y-4">
         <span className="text-green-700 dark:text-green-400 font-mono text-xs uppercase tracking-widest font-bold block">
           ABOUT PABT FOUNDATION
         </span>
@@ -88,7 +88,7 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline Section: How We Got Here */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800/80">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-200 dark:border-gray-800/80">
         <div className="text-center mb-16 space-y-2">
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-green-600 dark:text-green-400">
             OUR TIMELINE & HISTORY
@@ -105,7 +105,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800/80">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-200 dark:border-gray-800/80">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-4">What Guides Our Work</h2>
           <p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto text-sm">
@@ -123,7 +123,7 @@ export default function AboutPage() {
       </section>
 
       {/* Our Programmes */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800/80">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-200 dark:border-gray-800/80">
         <div className="text-center mb-14 space-y-2">
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-green-600 dark:text-green-400">
             WHAT WE DO
@@ -173,7 +173,7 @@ export default function AboutPage() {
       <SponsorMarquee />
 
       {/* Trust & Registration */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800/80">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-200 dark:border-gray-800/80">
         <div className="p-10 rounded-3xl bg-gray-50 dark:bg-[#10150F] border border-gray-200 dark:border-gray-800 text-center space-y-4 shadow-lg">
           <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white">Registered & Audited NGO</h2>
           <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed max-w-2xl mx-auto">

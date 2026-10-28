@@ -65,7 +65,7 @@ export default function MissionsPage() {
   ];
 
   return (
-    <div className="relative pt-14 sm:pt-20">
+    <div className="relative pt-2 sm:pt-4">
       {/* Back to Home Button */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2 flex items-center">
         <Link

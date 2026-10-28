@@ -55,8 +55,8 @@ export default function ImpactPage() {
   ];
 
   return (
-    <div className="relative pb-24">
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 text-center">
+    <div className="relative pb-6">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-10 text-center">
         <span className="text-green-700 dark:text-green-400 font-mono text-xs uppercase tracking-widest font-bold mb-3 block animate-float">
           Impact
         </span>

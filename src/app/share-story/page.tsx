@@ -45,7 +45,7 @@ export default function ShareStoryPage() {
   };
 
   return (
-    <div className="relative pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-12 overflow-hidden">
+    <div className="relative pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-4 overflow-hidden">
       {/* Faint background watermark */}
       <span
         aria-hidden="true"

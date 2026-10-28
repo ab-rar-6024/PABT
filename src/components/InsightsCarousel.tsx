@@ -104,7 +104,7 @@ export default function InsightsCarousel() {
       : insights.filter((item) => item.domain === selectedCategory);
 
   return (
-    <div className="relative w-full bg-gray-50 dark:bg-[#070908] py-12 transition-colors duration-500 min-h-screen">
+    <div className="relative w-full bg-gray-50 dark:bg-[#070908] pt-4 pb-12 transition-colors duration-500 min-h-screen">
       {/* Background Subtle Ambient Glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-emerald-500/10 dark:bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none" />
 
