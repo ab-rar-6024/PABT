@@ -224,8 +224,16 @@ export default function HeroFrameScroll() {
   // the viewport from scrolling (document.scrollingElement is html), which let real
   // page scroll bleed through underneath the hero and fight the sticky section.
   useEffect(() => {
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
+    const isMobile =
+      typeof window !== "undefined" &&
+      (window.innerWidth < 768 || window.matchMedia?.("(pointer: coarse)").matches);
+
+    // On mobile screens, do not lock page overflow so the user can freely scroll the website
+    if (!isMobile) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    }
+
     return () => {
       document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
@@ -531,44 +539,42 @@ export default function HeroFrameScroll() {
 
     const handleTouchStart = (e: TouchEvent) => {
       touchStartYRef.current = e.touches[0].clientY;
-      lastTouchTimeRef.current = 0; // reset so the next swipe is never blocked by a stale timestamp
+      lastTouchTimeRef.current = 0;
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (sequenceCompleteRef.current && window.scrollY > 10) {
+      // If sequence is already complete, allow standard mobile scrolling everywhere
+      if (sequenceCompleteRef.current) {
         return;
       }
 
       const deltaY = touchStartYRef.current - e.touches[0].clientY;
 
-      if (sequenceCompleteRef.current && window.scrollY <= 10 && deltaY < -30) {
-        e.preventDefault();
-        if (isAnimatingRef.current) return;
-        const now = Date.now();
-        if (now - lastTouchTimeRef.current < 600) return;
-        lastTouchTimeRef.current = now;
-        touchStartYRef.current = e.touches[0].clientY;
-        setSequenceComplete(false);
-        document.documentElement.style.overflow = "hidden";
-        document.body.style.overflow = "hidden";
-        goToPreviousSection();
-        return;
-      }
+      // Allow natural scroll if swipe is not decisively vertical
+      if (Math.abs(deltaY) < 30) return;
 
-      if (!sequenceCompleteRef.current) {
-        e.preventDefault();
-        if (isAnimatingRef.current) return;
+      const now = Date.now();
+      if (now - lastTouchTimeRef.current < 450) return;
 
-        if (Math.abs(deltaY) > 40) {
-          const now = Date.now();
-          if (now - lastTouchTimeRef.current < 600) return;
+      if (!isAnimatingRef.current) {
+        if (deltaY > 30) {
+          // Swiping up -> Advance checkpoint or release page scroll at the end
+          if (currentSectionRef.current === CHECKPOINTS.length - 1) {
+            setSequenceComplete(true);
+            document.documentElement.style.overflow = "";
+            document.body.style.overflow = "";
+            return;
+          }
+          if (e.cancelable) e.preventDefault();
           lastTouchTimeRef.current = now;
           touchStartYRef.current = e.touches[0].clientY;
-          if (deltaY > 40) {
-            goToNextSection();
-          } else if (deltaY < -40) {
-            goToPreviousSection();
-          }
+          goToNextSection();
+        } else if (deltaY < -30 && currentSectionRef.current > 0) {
+          // Swiping down -> Reverse checkpoint
+          if (e.cancelable) e.preventDefault();
+          lastTouchTimeRef.current = now;
+          touchStartYRef.current = e.touches[0].clientY;
+          goToPreviousSection();
         }
       }
     };
@@ -576,13 +582,11 @@ export default function HeroFrameScroll() {
     container.addEventListener("wheel", handleWheel, { passive: false });
     container.addEventListener("touchstart", handleTouchStart, { passive: true });
     container.addEventListener("touchmove", handleTouchMove, { passive: false });
-    window.addEventListener("wheel", handleWheel, { passive: false });
 
     return () => {
       container.removeEventListener("wheel", handleWheel);
       container.removeEventListener("touchstart", handleTouchStart);
       container.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("wheel", handleWheel);
     };
   }, [goToNextSection, goToPreviousSection]);
 
@@ -615,6 +619,11 @@ export default function HeroFrameScroll() {
       const isTouchPrimary =
         typeof window !== "undefined" && window.matchMedia?.("(pointer: coarse)").matches;
 
+      // Touch action style prevents mobile browser gesture conflict
+      if (container) {
+        container.style.touchAction = "pan-y";
+      }
+
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
       // `fov` above is Three.js's *vertical* field of view, so the globe's fit is governed by
@@ -646,7 +655,7 @@ export default function HeroFrameScroll() {
       dayTexture.colorSpace = THREE.SRGBColorSpace;
       cloudsTexture.colorSpace = THREE.SRGBColorSpace;
 
-      const sphereSegments = isTouchPrimary ? 40 : 64;
+      const sphereSegments = isTouchPrimary ? 28 : 64;
       const geometry = new THREE.SphereGeometry(1.8, sphereSegments, sphereSegments);
       const earthMaterial = new THREE.MeshStandardMaterial({
         map: dayTexture,
