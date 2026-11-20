@@ -105,7 +105,7 @@ export default function Home() {
           settled = true;
           return virtualTarget;
         }
-        return prev + diff * 0.12; // Easing speed
+        return prev + diff * 0.16; // Smooth easing speed
       });
       if (!settled) {
         animFrame = requestAnimationFrame(update);
@@ -337,7 +337,7 @@ export default function Home() {
           >
             {/* SVG Arc line drawn on top of cards & buttons (z-[160]) */}
             <svg
-              className="absolute inset-0 w-full h-full pointer-events-none z-[160]"
+              className="hidden sm:block absolute inset-0 w-full h-full pointer-events-none z-[160]"
               viewBox="0 0 1000 400"
               preserveAspectRatio="none"
             >
@@ -368,10 +368,10 @@ export default function Home() {
                   key={domain.name}
                   onClick={() => (abs < 0.5 ? router.push(domain.href) : goToDomain(i))}
                   aria-label={abs < 0.5 ? `Open ${domain.name} pathway page` : `Show ${domain.name} pathway`}
-                  className="absolute left-1/2 top-[51.25%] w-44 h-60 sm:w-56 sm:h-72 md:w-64 md:h-[340px] rounded-3xl overflow-hidden border border-gray-200/80 dark:border-gray-800/80 shadow-2xl cursor-pointer"
+                  className="absolute left-1/2 top-[51.25%] w-44 h-60 sm:w-56 sm:h-72 md:w-64 md:h-[340px] rounded-3xl overflow-hidden border border-gray-200/80 dark:border-gray-800/80 shadow-2xl cursor-pointer will-change-transform"
                   style={{
-                    transform: `translate(calc(-50% + ${offset} * var(--spacing-x)), calc(-50% + ${offset * offset} * var(--spacing-y))) scale(${scale}) rotate(${rotateDeg}deg)`,
-                    filter: `blur(${blurPx}px)`,
+                    transform: `translate3d(calc(-50% + ${offset} * var(--spacing-x)), calc(-50% + ${offset * offset} * var(--spacing-y)), 0) scale(${scale}) rotate(${rotateDeg}deg)`,
+                    filter: abs > 0.05 ? `blur(${blurPx}px)` : "none",
                     opacity,
                     zIndex,
                     pointerEvents: abs > 1.1 ? "none" : "auto",
@@ -386,26 +386,26 @@ export default function Home() {
             <button
               onClick={() => goToDomain((activeDomainIndex - 1 + 5) % 5)}
               aria-label="Previous pathway"
-              className="flex absolute left-1/2 top-[51.25%] z-[150] w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-[#F5F6F1] text-gray-900 shadow-xl items-center justify-center hover:bg-white active:scale-95 transition-colors duration-300 cursor-pointer"
+              className="flex absolute left-1/2 top-[51.25%] z-[150] w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-[#F5F6F1] dark:bg-gray-800 text-gray-900 dark:text-white shadow-xl items-center justify-center hover:bg-white dark:hover:bg-gray-700 active:scale-95 transition-colors duration-300 cursor-pointer"
               style={{
                 transform: "translate(calc(-50% - 1.35 * var(--spacing-x)), calc(-50% + 1.82 * var(--spacing-y)))",
               }}
             >
-              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 5L5 19M5 19h10M5 19V9"></path>
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
 
             <button
               onClick={() => goToDomain((activeDomainIndex + 1) % 5)}
               aria-label="Next pathway"
-              className="flex absolute left-1/2 top-[51.25%] z-[150] w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-[#F5F6F1] text-gray-900 shadow-xl items-center justify-center hover:bg-white active:scale-95 transition-colors duration-300 cursor-pointer"
+              className="flex absolute left-1/2 top-[51.25%] z-[150] w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-[#F5F6F1] dark:bg-gray-800 text-gray-900 dark:text-white shadow-xl items-center justify-center hover:bg-white dark:hover:bg-gray-700 active:scale-95 transition-colors duration-300 cursor-pointer"
               style={{
                 transform: "translate(calc(-50% + 1.35 * var(--spacing-x)), calc(-50% + 1.82 * var(--spacing-y)))",
               }}
             >
-              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 5l14 14m0 0H9m10 0V9"></path>
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
               </svg>
             </button>
           </div>
