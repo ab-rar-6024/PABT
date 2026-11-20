@@ -115,6 +115,34 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* View Transition / Wave Ripple for Theme Toggle */
+::view-transition-group(root) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  display: block;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 999999;
+}
+
+/* Temporarily disable CSS transitions on elements while view transition runs to prevent GPU thread stall */
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: none !important;
+}
+
 /* Glassmorphism Utilities */
 .glass-panel {
   background: rgba(0, 0, 0, 0.03);
