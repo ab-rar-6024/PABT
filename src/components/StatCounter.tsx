@@ -48,7 +48,12 @@ export default function StatCounter({
   return (
     <span>
       {prefix}
-      {value.toFixed(decimals)}
+      {decimals > 0
+        ? value.toLocaleString("en-US", {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals,
+          })
+        : Math.round(value).toLocaleString("en-US")}
       {suffix}
     </span>
   );

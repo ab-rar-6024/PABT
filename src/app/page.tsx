@@ -118,14 +118,14 @@ export default function Home() {
   const activeDomainIndex = ((Math.round(activeProgress) % 5) + 5) % 5;
 
   const impactStats = [
-    { target: 42.8, decimals: 1, suffix: "M+", label: "Trees Planted", bar: "bg-green-500", icon: TreePine },
+    { target: 34000, decimals: 0, suffix: "", label: "Trees Planted", bar: "bg-green-500", icon: TreePine },
     { target: 87, decimals: 0, suffix: "%", label: "Saplings Surviving", bar: "bg-green-500", icon: Sprout },
     { target: 128, decimals: 0, suffix: "", label: "Water Bodies Restored", bar: "bg-green-500", icon: Droplets },
     { target: 96.5, decimals: 1, suffix: "K+", label: "Waste Diverted (Tonnes)", bar: "bg-amber-500", icon: Recycle },
     { target: 210, decimals: 0, suffix: "K+", label: "Carbon Avoided (Tonnes)", bar: "bg-amber-500", icon: Wind },
     { target: 620, decimals: 0, suffix: "+", label: "Schools Engaged", bar: "bg-orange-500", icon: GraduationCap },
     { target: 1.9, decimals: 1, suffix: "K+", label: "Communities Reached", bar: "bg-orange-500", icon: Users },
-    { target: 74, decimals: 0, suffix: "", label: "Corporate Partners", bar: "bg-slate-500", icon: Building2 },
+    { target: 18, decimals: 0, suffix: "", label: "Corporate Partners", bar: "bg-slate-500", icon: Building2 },
   ];
 
   useEffect(() => {
@@ -300,7 +300,7 @@ export default function Home() {
             themeColor="nature"
           />
           <MetricCard
-            value="74"
+            value="18"
             label="Corporate Partners"
             sublabel="Enterprises transitioning to ESG."
             themeColor="esg"
